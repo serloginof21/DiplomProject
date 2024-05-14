@@ -1,0 +1,579 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище ChampionatModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id_Category" />
+          </Key>
+          <Property Name="Id_Category" Type="int" Nullable="false" />
+          <Property Name="NameCategory" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="ClothingSizes">
+          <Key>
+            <PropertyRef Name="Id_ClothingSize" />
+          </Key>
+          <Property Name="Id_ClothingSize" Type="int" Nullable="false" />
+          <Property Name="NameSize" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Competences">
+          <Key>
+            <PropertyRef Name="Id_Competence" />
+          </Key>
+          <Property Name="Id_Competence" Type="int" Nullable="false" />
+          <Property Name="NameCompetence" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Expert">
+          <Key>
+            <PropertyRef Name="Id_Expert" />
+          </Key>
+          <Property Name="Id_Expert" Type="int" Nullable="false" />
+          <Property Name="SurnameExpert" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="NameExpert" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="PatronymicExpert" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="EmailExpert" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="PhoneNumberExpert" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="RegionExpert" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="CountryExpert" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Id_Organization" Type="int" Nullable="false" />
+          <Property Name="Id_ClothingSizeExpert" Type="int" Nullable="false" />
+          <Property Name="Id_Role" Type="int" Nullable="false" />
+          <Property Name="Id_Competence" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ExpertRole">
+          <Key>
+            <PropertyRef Name="Id_Role" />
+          </Key>
+          <Property Name="Id_Role" Type="int" Nullable="false" />
+          <Property Name="NameRole" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Organizations">
+          <Key>
+            <PropertyRef Name="Id_Organization" />
+          </Key>
+          <Property Name="Id_Organization" Type="int" Nullable="false" />
+          <Property Name="Country" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Region" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Organization" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="Id_Student" />
+          </Key>
+          <Property Name="Id_Student" Type="int" Nullable="false" />
+          <Property Name="SurnameStudent" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="NameStudent" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="PatronymicStudent" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="EmailStudent" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="PhoneNumberStudent" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="RegionStudent" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="CountryStudent" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Id_Organization" Type="int" Nullable="false" />
+          <Property Name="Id_ClothingSizeStudent" Type="int" Nullable="false" />
+          <Property Name="Id_Category" Type="int" Nullable="false" />
+          <Property Name="Id_Competence" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id_User" />
+          </Key>
+          <Property Name="Id_User" Type="int" Nullable="false" />
+          <Property Name="LoginUser" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="PasswordUser" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Expert__Id_Cloth__5BE2A6F2">
+          <End Role="ClothingSizes" Type="Self.ClothingSizes" Multiplicity="1" />
+          <End Role="Expert" Type="Self.Expert" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClothingSizes">
+              <PropertyRef Name="Id_ClothingSize" />
+            </Principal>
+            <Dependent Role="Expert">
+              <PropertyRef Name="Id_ClothingSizeExpert" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Expert__Id_Compe__5DCAEF64">
+          <End Role="Competences" Type="Self.Competences" Multiplicity="1" />
+          <End Role="Expert" Type="Self.Expert" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Competences">
+              <PropertyRef Name="Id_Competence" />
+            </Principal>
+            <Dependent Role="Expert">
+              <PropertyRef Name="Id_Competence" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Expert__Id_Organ__5AEE82B9">
+          <End Role="Organizations" Type="Self.Organizations" Multiplicity="1" />
+          <End Role="Expert" Type="Self.Expert" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Organizations">
+              <PropertyRef Name="Id_Organization" />
+            </Principal>
+            <Dependent Role="Expert">
+              <PropertyRef Name="Id_Organization" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Expert__Id_Role__5CD6CB2B">
+          <End Role="ExpertRole" Type="Self.ExpertRole" Multiplicity="1" />
+          <End Role="Expert" Type="Self.Expert" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExpertRole">
+              <PropertyRef Name="Id_Role" />
+            </Principal>
+            <Dependent Role="Expert">
+              <PropertyRef Name="Id_Role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Student__Id_Cate__571DF1D5">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id_Category" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="Id_Category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Student__Id_Clot__5629CD9C">
+          <End Role="ClothingSizes" Type="Self.ClothingSizes" Multiplicity="1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClothingSizes">
+              <PropertyRef Name="Id_ClothingSize" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="Id_ClothingSizeStudent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Student__Id_Comp__5812160E">
+          <End Role="Competences" Type="Self.Competences" Multiplicity="1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Competences">
+              <PropertyRef Name="Id_Competence" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="Id_Competence" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Student__Id_Orga__5535A963">
+          <End Role="Organizations" Type="Self.Organizations" Multiplicity="1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Organizations">
+              <PropertyRef Name="Id_Organization" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="Id_Organization" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище ChampionatModelContainer">
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClothingSizes" EntityType="Self.ClothingSizes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Competences" EntityType="Self.Competences" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Expert" EntityType="Self.Expert" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExpertRole" EntityType="Self.ExpertRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Organizations" EntityType="Self.Organizations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Expert__Id_Cloth__5BE2A6F2" Association="Self.FK__Expert__Id_Cloth__5BE2A6F2">
+            <End Role="ClothingSizes" EntitySet="ClothingSizes" />
+            <End Role="Expert" EntitySet="Expert" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Expert__Id_Compe__5DCAEF64" Association="Self.FK__Expert__Id_Compe__5DCAEF64">
+            <End Role="Competences" EntitySet="Competences" />
+            <End Role="Expert" EntitySet="Expert" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Expert__Id_Organ__5AEE82B9" Association="Self.FK__Expert__Id_Organ__5AEE82B9">
+            <End Role="Organizations" EntitySet="Organizations" />
+            <End Role="Expert" EntitySet="Expert" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Expert__Id_Role__5CD6CB2B" Association="Self.FK__Expert__Id_Role__5CD6CB2B">
+            <End Role="ExpertRole" EntitySet="ExpertRole" />
+            <End Role="Expert" EntitySet="Expert" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Student__Id_Cate__571DF1D5" Association="Self.FK__Student__Id_Cate__571DF1D5">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Student" EntitySet="Student" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Student__Id_Clot__5629CD9C" Association="Self.FK__Student__Id_Clot__5629CD9C">
+            <End Role="ClothingSizes" EntitySet="ClothingSizes" />
+            <End Role="Student" EntitySet="Student" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Student__Id_Comp__5812160E" Association="Self.FK__Student__Id_Comp__5812160E">
+            <End Role="Competences" EntitySet="Competences" />
+            <End Role="Student" EntitySet="Student" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Student__Id_Orga__5535A963" Association="Self.FK__Student__Id_Orga__5535A963">
+            <End Role="Organizations" EntitySet="Organizations" />
+            <End Role="Student" EntitySet="Student" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ChampionatModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id_Category" />
+          </Key>
+          <Property Name="Id_Category" Type="Int32" Nullable="false" />
+          <Property Name="NameCategory" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Student" Relationship="Self.FK__Student__Id_Cate__571DF1D5" FromRole="Category" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="ClothingSizes">
+          <Key>
+            <PropertyRef Name="Id_ClothingSize" />
+          </Key>
+          <Property Name="Id_ClothingSize" Type="Int32" Nullable="false" />
+          <Property Name="NameSize" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Expert" Relationship="Self.FK__Expert__Id_Cloth__5BE2A6F2" FromRole="ClothingSizes" ToRole="Expert" />
+          <NavigationProperty Name="Student" Relationship="Self.FK__Student__Id_Clot__5629CD9C" FromRole="ClothingSizes" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="Competences">
+          <Key>
+            <PropertyRef Name="Id_Competence" />
+          </Key>
+          <Property Name="Id_Competence" Type="Int32" Nullable="false" />
+          <Property Name="NameCompetence" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Expert" Relationship="Self.FK__Expert__Id_Compe__5DCAEF64" FromRole="Competences" ToRole="Expert" />
+          <NavigationProperty Name="Student" Relationship="Self.FK__Student__Id_Comp__5812160E" FromRole="Competences" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="Expert">
+          <Key>
+            <PropertyRef Name="Id_Expert" />
+          </Key>
+          <Property Name="Id_Expert" Type="Int32" Nullable="false" />
+          <Property Name="SurnameExpert" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NameExpert" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PatronymicExpert" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EmailExpert" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PhoneNumberExpert" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RegionExpert" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CountryExpert" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Id_Organization" Type="Int32" Nullable="false" />
+          <Property Name="Id_ClothingSizeExpert" Type="Int32" Nullable="false" />
+          <Property Name="Id_Role" Type="Int32" Nullable="false" />
+          <Property Name="Id_Competence" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ClothingSizes" Relationship="Self.FK__Expert__Id_Cloth__5BE2A6F2" FromRole="Expert" ToRole="ClothingSizes" />
+          <NavigationProperty Name="Competences" Relationship="Self.FK__Expert__Id_Compe__5DCAEF64" FromRole="Expert" ToRole="Competences" />
+          <NavigationProperty Name="Organizations" Relationship="Self.FK__Expert__Id_Organ__5AEE82B9" FromRole="Expert" ToRole="Organizations" />
+          <NavigationProperty Name="ExpertRole" Relationship="Self.FK__Expert__Id_Role__5CD6CB2B" FromRole="Expert" ToRole="ExpertRole" />
+        </EntityType>
+        <EntityType Name="ExpertRole">
+          <Key>
+            <PropertyRef Name="Id_Role" />
+          </Key>
+          <Property Name="Id_Role" Type="Int32" Nullable="false" />
+          <Property Name="NameRole" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Expert" Relationship="Self.FK__Expert__Id_Role__5CD6CB2B" FromRole="ExpertRole" ToRole="Expert" />
+        </EntityType>
+        <EntityType Name="Organizations">
+          <Key>
+            <PropertyRef Name="Id_Organization" />
+          </Key>
+          <Property Name="Id_Organization" Type="Int32" Nullable="false" />
+          <Property Name="Country" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Region" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Organization" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Expert" Relationship="Self.FK__Expert__Id_Organ__5AEE82B9" FromRole="Organizations" ToRole="Expert" />
+          <NavigationProperty Name="Student" Relationship="Self.FK__Student__Id_Orga__5535A963" FromRole="Organizations" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="Id_Student" />
+          </Key>
+          <Property Name="Id_Student" Type="Int32" Nullable="false" />
+          <Property Name="SurnameStudent" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NameStudent" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PatronymicStudent" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EmailStudent" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PhoneNumberStudent" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RegionStudent" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CountryStudent" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Id_Organization" Type="Int32" Nullable="false" />
+          <Property Name="Id_ClothingSizeStudent" Type="Int32" Nullable="false" />
+          <Property Name="Id_Category" Type="Int32" Nullable="false" />
+          <Property Name="Id_Competence" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Category" Relationship="Self.FK__Student__Id_Cate__571DF1D5" FromRole="Student" ToRole="Category" />
+          <NavigationProperty Name="ClothingSizes" Relationship="Self.FK__Student__Id_Clot__5629CD9C" FromRole="Student" ToRole="ClothingSizes" />
+          <NavigationProperty Name="Competences" Relationship="Self.FK__Student__Id_Comp__5812160E" FromRole="Student" ToRole="Competences" />
+          <NavigationProperty Name="Organizations" Relationship="Self.FK__Student__Id_Orga__5535A963" FromRole="Student" ToRole="Organizations" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id_User" />
+          </Key>
+          <Property Name="Id_User" Type="Int32" Nullable="false" />
+          <Property Name="LoginUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PasswordUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Student__Id_Cate__571DF1D5">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id_Category" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="Id_Category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Expert__Id_Cloth__5BE2A6F2">
+          <End Role="ClothingSizes" Type="Self.ClothingSizes" Multiplicity="1" />
+          <End Role="Expert" Type="Self.Expert" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClothingSizes">
+              <PropertyRef Name="Id_ClothingSize" />
+            </Principal>
+            <Dependent Role="Expert">
+              <PropertyRef Name="Id_ClothingSizeExpert" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Student__Id_Clot__5629CD9C">
+          <End Role="ClothingSizes" Type="Self.ClothingSizes" Multiplicity="1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClothingSizes">
+              <PropertyRef Name="Id_ClothingSize" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="Id_ClothingSizeStudent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Expert__Id_Compe__5DCAEF64">
+          <End Role="Competences" Type="Self.Competences" Multiplicity="1" />
+          <End Role="Expert" Type="Self.Expert" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Competences">
+              <PropertyRef Name="Id_Competence" />
+            </Principal>
+            <Dependent Role="Expert">
+              <PropertyRef Name="Id_Competence" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Student__Id_Comp__5812160E">
+          <End Role="Competences" Type="Self.Competences" Multiplicity="1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Competences">
+              <PropertyRef Name="Id_Competence" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="Id_Competence" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Expert__Id_Organ__5AEE82B9">
+          <End Role="Organizations" Type="Self.Organizations" Multiplicity="1" />
+          <End Role="Expert" Type="Self.Expert" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Organizations">
+              <PropertyRef Name="Id_Organization" />
+            </Principal>
+            <Dependent Role="Expert">
+              <PropertyRef Name="Id_Organization" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Expert__Id_Role__5CD6CB2B">
+          <End Role="ExpertRole" Type="Self.ExpertRole" Multiplicity="1" />
+          <End Role="Expert" Type="Self.Expert" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExpertRole">
+              <PropertyRef Name="Id_Role" />
+            </Principal>
+            <Dependent Role="Expert">
+              <PropertyRef Name="Id_Role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Student__Id_Orga__5535A963">
+          <End Role="Organizations" Type="Self.Organizations" Multiplicity="1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Organizations">
+              <PropertyRef Name="Id_Organization" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="Id_Organization" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ChampionatEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Category" EntityType="Self.Category" />
+          <EntitySet Name="ClothingSizes" EntityType="Self.ClothingSizes" />
+          <EntitySet Name="Competences" EntityType="Self.Competences" />
+          <EntitySet Name="Expert" EntityType="Self.Expert" />
+          <EntitySet Name="ExpertRole" EntityType="Self.ExpertRole" />
+          <EntitySet Name="Organizations" EntityType="Self.Organizations" />
+          <EntitySet Name="Student" EntityType="Self.Student" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <AssociationSet Name="FK__Student__Id_Cate__571DF1D5" Association="Self.FK__Student__Id_Cate__571DF1D5">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Student" EntitySet="Student" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Expert__Id_Cloth__5BE2A6F2" Association="Self.FK__Expert__Id_Cloth__5BE2A6F2">
+            <End Role="ClothingSizes" EntitySet="ClothingSizes" />
+            <End Role="Expert" EntitySet="Expert" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Student__Id_Clot__5629CD9C" Association="Self.FK__Student__Id_Clot__5629CD9C">
+            <End Role="ClothingSizes" EntitySet="ClothingSizes" />
+            <End Role="Student" EntitySet="Student" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Expert__Id_Compe__5DCAEF64" Association="Self.FK__Expert__Id_Compe__5DCAEF64">
+            <End Role="Competences" EntitySet="Competences" />
+            <End Role="Expert" EntitySet="Expert" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Student__Id_Comp__5812160E" Association="Self.FK__Student__Id_Comp__5812160E">
+            <End Role="Competences" EntitySet="Competences" />
+            <End Role="Student" EntitySet="Student" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Expert__Id_Organ__5AEE82B9" Association="Self.FK__Expert__Id_Organ__5AEE82B9">
+            <End Role="Organizations" EntitySet="Organizations" />
+            <End Role="Expert" EntitySet="Expert" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Expert__Id_Role__5CD6CB2B" Association="Self.FK__Expert__Id_Role__5CD6CB2B">
+            <End Role="ExpertRole" EntitySet="ExpertRole" />
+            <End Role="Expert" EntitySet="Expert" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Student__Id_Orga__5535A963" Association="Self.FK__Student__Id_Orga__5535A963">
+            <End Role="Organizations" EntitySet="Organizations" />
+            <End Role="Student" EntitySet="Student" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ChampionatModelContainer" CdmEntityContainer="ChampionatEntities">
+          <EntitySetMapping Name="Category">
+            <EntityTypeMapping TypeName="ChampionatModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="Id_Category" ColumnName="Id_Category" />
+                <ScalarProperty Name="NameCategory" ColumnName="NameCategory" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClothingSizes">
+            <EntityTypeMapping TypeName="ChampionatModel.ClothingSizes">
+              <MappingFragment StoreEntitySet="ClothingSizes">
+                <ScalarProperty Name="Id_ClothingSize" ColumnName="Id_ClothingSize" />
+                <ScalarProperty Name="NameSize" ColumnName="NameSize" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Competences">
+            <EntityTypeMapping TypeName="ChampionatModel.Competences">
+              <MappingFragment StoreEntitySet="Competences">
+                <ScalarProperty Name="Id_Competence" ColumnName="Id_Competence" />
+                <ScalarProperty Name="NameCompetence" ColumnName="NameCompetence" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Expert">
+            <EntityTypeMapping TypeName="ChampionatModel.Expert">
+              <MappingFragment StoreEntitySet="Expert">
+                <ScalarProperty Name="Id_Expert" ColumnName="Id_Expert" />
+                <ScalarProperty Name="SurnameExpert" ColumnName="SurnameExpert" />
+                <ScalarProperty Name="NameExpert" ColumnName="NameExpert" />
+                <ScalarProperty Name="PatronymicExpert" ColumnName="PatronymicExpert" />
+                <ScalarProperty Name="EmailExpert" ColumnName="EmailExpert" />
+                <ScalarProperty Name="PhoneNumberExpert" ColumnName="PhoneNumberExpert" />
+                <ScalarProperty Name="RegionExpert" ColumnName="RegionExpert" />
+                <ScalarProperty Name="CountryExpert" ColumnName="CountryExpert" />
+                <ScalarProperty Name="Id_Organization" ColumnName="Id_Organization" />
+                <ScalarProperty Name="Id_ClothingSizeExpert" ColumnName="Id_ClothingSizeExpert" />
+                <ScalarProperty Name="Id_Role" ColumnName="Id_Role" />
+                <ScalarProperty Name="Id_Competence" ColumnName="Id_Competence" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExpertRole">
+            <EntityTypeMapping TypeName="ChampionatModel.ExpertRole">
+              <MappingFragment StoreEntitySet="ExpertRole">
+                <ScalarProperty Name="Id_Role" ColumnName="Id_Role" />
+                <ScalarProperty Name="NameRole" ColumnName="NameRole" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Organizations">
+            <EntityTypeMapping TypeName="ChampionatModel.Organizations">
+              <MappingFragment StoreEntitySet="Organizations">
+                <ScalarProperty Name="Id_Organization" ColumnName="Id_Organization" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Region" ColumnName="Region" />
+                <ScalarProperty Name="Organization" ColumnName="Organization" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Student">
+            <EntityTypeMapping TypeName="ChampionatModel.Student">
+              <MappingFragment StoreEntitySet="Student">
+                <ScalarProperty Name="Id_Student" ColumnName="Id_Student" />
+                <ScalarProperty Name="SurnameStudent" ColumnName="SurnameStudent" />
+                <ScalarProperty Name="NameStudent" ColumnName="NameStudent" />
+                <ScalarProperty Name="PatronymicStudent" ColumnName="PatronymicStudent" />
+                <ScalarProperty Name="EmailStudent" ColumnName="EmailStudent" />
+                <ScalarProperty Name="PhoneNumberStudent" ColumnName="PhoneNumberStudent" />
+                <ScalarProperty Name="RegionStudent" ColumnName="RegionStudent" />
+                <ScalarProperty Name="CountryStudent" ColumnName="CountryStudent" />
+                <ScalarProperty Name="Id_Organization" ColumnName="Id_Organization" />
+                <ScalarProperty Name="Id_ClothingSizeStudent" ColumnName="Id_ClothingSizeStudent" />
+                <ScalarProperty Name="Id_Category" ColumnName="Id_Category" />
+                <ScalarProperty Name="Id_Competence" ColumnName="Id_Competence" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="ChampionatModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Id_User" ColumnName="Id_User" />
+                <ScalarProperty Name="LoginUser" ColumnName="LoginUser" />
+                <ScalarProperty Name="PasswordUser" ColumnName="PasswordUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

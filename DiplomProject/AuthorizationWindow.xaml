@@ -1,0 +1,52 @@
+﻿<Window x:Class="DiplomProject.AuthorizationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DiplomProject"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="Авторизация" Height="750" Width="450" WindowStartupLocation="CenterScreen"
+        Icon="Icons/CompanyLogo.jpg">
+
+    <Grid Background="LightGreen">
+        <Border MinHeight="450" Background="White" Margin="15" VerticalAlignment="Center"
+                Padding="30" MaxWidth="600" CornerRadius="20">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="30" Color="LightGray" ShadowDepth="0"/>
+            </Border.Effect>
+
+            <StackPanel>
+                <Button Style="{StaticResource MaterialDesignFlatButton}" Height="30" Click="Exit_ClickButton" 
+                        HorizontalAlignment="Right">
+                    <Image Source="Icons/TurnOff.png"/>
+                </Button>
+
+                <Image Source="Icons/CompanyLogo.jpg" Height="125"/>
+                <TextBlock Text="Профессионалы" FontSize="30"
+                           HorizontalAlignment="Center" Margin="0 0 0 20" FontWeight="SemiBold"/>
+
+                <TextBlock Text="Войдите или зарегистрирйте аккаунт" FontSize="15" 
+                           HorizontalAlignment="Center" Margin="0 0 0 20" FontWeight="SemiBold"/>
+
+                <TextBox x:Name="tbLogin" materialDesign:HintAssist.Hint="Логин" 
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}" 
+                         FontSize="15" Margin="0 0 0 15" FontWeight="SemiBold"/>
+
+
+                <PasswordBox x:Name="tbPassword" materialDesign:HintAssist.Hint="Пароль" 
+                         Style="{StaticResource MaterialDesignOutlinedPasswordBox}" 
+                         FontSize="15" FontWeight="SemiBold"/>
+
+                <Button x:Name="authBtn" Content="Вход" Margin="20 80 20 20" 
+                        Click="Auth_ClickButton" Foreground="White" 
+                        Style="{StaticResource MaterialDesignRaisedDarkButton}" FontWeight="SemiBold"/>
+
+                <Button x:Name="regBtn" Content="Регистрация" Margin="20 0 20 0" 
+                        Click="Registration_ClickButton"
+                        Style="{StaticResource MaterialDesignFlatButton}" FontWeight="SemiBold"/>
+            </StackPanel>
+
+        </Border>
+    </Grid>
+</Window>

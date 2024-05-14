@@ -1,0 +1,83 @@
+﻿<Window x:Class="DiplomProject.GraphicOfChampion"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DiplomProject"
+        mc:Ignorable="d"
+        Title="График чемпионата" Height="900" Width="1700"
+        Icon="Icons/CompanyLogo.jpg"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid Background="LightGreen">
+        <Border Height="850" Background="White" Margin="15" VerticalAlignment="Center"
+                Padding="30" Width="1650" CornerRadius="20">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="30" Color="LightGray" ShadowDepth="0"/>
+            </Border.Effect>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="300"/>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="300"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Компетенция:" FontWeight="SemiBold" 
+                               FontSize="25" VerticalAlignment="Center" 
+                               Margin="10"/>
+
+                    <ComboBox x:Name="cb1"
+                              Width="300"
+                              HorizontalAlignment="Left"
+                              Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                              DisplayMemberPath="NameCompetence" SelectionChanged="cb1_SelectionChanged"/>
+
+                    <Button x:Name="regBtn" Content="Сбросить" Margin="10 0 0 0" 
+                        Click="Reset_ClickButton" Foreground="Black"
+                        Style="{StaticResource MaterialDesignFlatButton}" 
+                        FontWeight="SemiBold"/>
+
+                    <Button Style="{StaticResource MaterialDesignFlatButton}" Height="30" 
+                                    Click="Exit_ClickButton" 
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    Margin="945 0 0 0">
+                        <Image Source="Icons/TurnOff.png"/>
+                    </Button>
+                </StackPanel>
+
+                <DataGrid x:Name="dgE" AutoGenerateColumns="False" Grid.Row="1" Margin="0 10 0 0" IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding Id_Expert}" Width="*"/>
+                        <DataGridTextColumn Header="Фамилия" Binding="{Binding SurnameExpert}" Width="*"/>
+                        <DataGridTextColumn Header="Имя" Binding="{Binding NameExpert}" Width="*"/>
+                        <DataGridTextColumn Header="Отчество" Binding="{Binding PatronymicExpert}" Width="*"/>
+                        <DataGridTextColumn Header="Адрес электронной почты" Binding="{Binding EmailExpert}" Width="200"/>
+                        <DataGridTextColumn Header="Роль" Binding="{Binding ExpertRole.NameRole}" Width="*"/>
+                        <DataGridTextColumn Header="Регион" Binding="{Binding Organizations.Region}" Width="*"/>
+                        <DataGridTextColumn Header="Страна" Binding="{Binding Organizations.Country}" Width="*"/>
+                        <DataGridTextColumn Header="Телефон" Binding="{Binding PhoneNumberExpert}" Width="*"/>
+                        <DataGridTextColumn Header="Организация" Binding="{Binding Organizations.Organization}" Width="*"/>
+                        <DataGridTextColumn Header="Размер одежды" Binding="{Binding ClothingSizes.NameSize}" Width="*"/>
+                        <DataGridTextColumn Header="Компетенция" Binding="{Binding Competences.NameCompetence}" Width="*"/>
+                        <DataGridTemplateColumn Width="Auto" >
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button x:Name="editBtn" Content="Редактировать" Margin="20 0 20 0" 
+                                Style="{StaticResource MaterialDesignFlatButton}" FontWeight="SemiBold"
+                                    Click="Chooise_ClickButton"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+            </Grid>
+
+        </Border>
+    </Grid>
+</Window>
