@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OfficeOpenXml;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using OfficeOpenXml;
+using System.IO;
 
 namespace DiplomProject
 {
@@ -34,6 +37,8 @@ namespace DiplomProject
 
             // Привязыв обработчика события SelectionChanged для cb1
             cb1.SelectionChanged += cb1_SelectionChanged;
+
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
         }
 
         private void Add_ClickButton(object sender, RoutedEventArgs e)
@@ -77,12 +82,50 @@ namespace DiplomProject
 
         private void Edit_ClickButton(object sender, RoutedEventArgs e)
         {
+            if (dgG.SelectedItem != null)
+            {
+                ChampionSchedule selectedSchedule = dgG.SelectedItem as ChampionSchedule;
+                if (selectedSchedule != null)
+                {
+                    selectedSchedule.Id_Schedule = int.Parse(tbId.Text);
+                    selectedSchedule.Competences = cb1.SelectedItem as Competences;
+                    selectedSchedule.Expert = cb2.SelectedItem as Expert;
+                    selectedSchedule.Expert1 = cb3.SelectedItem as Expert;
+                    selectedSchedule.Expert2 = cb4.SelectedItem as Expert;
+                    selectedSchedule.MainGroupStartDate = dt1.SelectedDate.HasValue ? dt1.SelectedDate.Value : default(DateTime);
+                    selectedSchedule.MainGroupEndDate = dt2.SelectedDate.HasValue ? dt2.SelectedDate.Value : default(DateTime);
+                    selectedSchedule.JuniorStartDate = dt3.SelectedDate.HasValue ? dt3.SelectedDate.Value : default(DateTime);
+                    selectedSchedule.JuniorEndDate = dt4.SelectedDate.HasValue ? dt4.SelectedDate.Value : default(DateTime);
 
+                    db.SaveChanges();
+                    dgG.Items.Refresh();
+                    MessageBox.Show("Изменения в графике сохранены.", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Выберите элемент для редактирования.", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
 
         private void Delete_ClickButton(object sender, RoutedEventArgs e)
         {
-
+            if (dgG.SelectedItem != null)
+            {
+                ChampionSchedule selectedSchedule = dgG.SelectedItem as ChampionSchedule;
+                if (selectedSchedule != null)
+                {
+                    db.ChampionSchedule.Remove(selectedSchedule);
+                    db.SaveChanges();
+                    dgG.ItemsSource = db.ChampionSchedule.ToList();
+                    MessageBox.Show("Позиция удалена из графика.", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+            else
+            {
+                // Выводим сообщение о необходимости выбора элемента для удаления
+                MessageBox.Show("Выберите элемент для удаления.", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
 
         private void Back_ClickButton(object sender, RoutedEventArgs e)
@@ -142,6 +185,81 @@ namespace DiplomProject
                 cb2.IsEnabled = false;
                 cb3.IsEnabled = false;
                 cb4.IsEnabled = false;
+            }
+        }
+
+        private void dgG_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (dgG.SelectedItem != null)
+            {
+                ChampionSchedule selectedSchedule = dgG.SelectedItem as ChampionSchedule;
+                if (selectedSchedule != null)
+                {
+                    tbId.Text = selectedSchedule.Id_Schedule.ToString();
+                    cb1.SelectedItem = selectedSchedule.Competences;
+                    cb2.SelectedItem = selectedSchedule.Expert;
+                    cb3.SelectedItem = selectedSchedule.Expert1;
+                    cb4.SelectedItem = selectedSchedule.Expert2;
+                    dt1.SelectedDate = selectedSchedule.MainGroupStartDate;
+                    dt2.SelectedDate = selectedSchedule.MainGroupEndDate;
+                    dt3.SelectedDate = selectedSchedule.JuniorStartDate;
+                    dt4.SelectedDate = selectedSchedule.JuniorEndDate;
+                }
+            }
+        }
+
+        private void Export_ClickButton(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var saveFileDialog = new Microsoft.Win32.SaveFileDialog
+                {
+                    Filter = "Excel files (*.xlsx)|*.xlsx|All files (*.*)|*.*",
+                    FilterIndex = 1,
+                    FileName = "График проведения чемпионата"
+                };
+
+                if (saveFileDialog.ShowDialog() == true)
+                {
+                    FileInfo newFile = new FileInfo(saveFileDialog.FileName);
+
+                    using (ExcelPackage package = new ExcelPackage(newFile))
+                    {
+                        ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("График");
+
+                        worksheet.Cells[1, 1].Value = "Компетенция";
+                        worksheet.Cells[1, 2].Value = "Главный эксперт";
+                        worksheet.Cells[1, 3].Value = "Эксперт-наставник";
+                        worksheet.Cells[1, 4].Value = "Технический эксперт";
+                        worksheet.Cells[1, 5].Value = "Основа";
+                        worksheet.Cells[1, 6].Value = "Юниоры";
+
+                        for (int i = 0; i < dgG.Items.Count; i++)
+                        {
+                            var item = dgG.Items[i] as ChampionSchedule;
+
+                            worksheet.Cells[i + 2, 1].Value = item.Competences.NameCompetence;
+                            worksheet.Cells[i + 2, 2].Value = item.Expert?.FullName;
+                            worksheet.Cells[i + 2, 3].Value = item.Expert1?.FullName;
+                            worksheet.Cells[i + 2, 4].Value = item.Expert2?.FullName;
+                            worksheet.Cells[i + 2, 5].Value = $"{item.MainGroupStartDate:dd.MM} - {item.MainGroupEndDate:dd.MM}";
+                            worksheet.Cells[i + 2, 6].Value = $"{item.JuniorStartDate:dd.MM} - {item.JuniorEndDate:dd.MM}";
+                        }
+
+                        worksheet.Cells[1, 1, dgG.Items.Count + 1, 6].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        worksheet.Cells[1, 1, dgG.Items.Count + 1, 6].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        worksheet.Cells[1, 1, dgG.Items.Count + 1, 6].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        worksheet.Cells[1, 1, dgG.Items.Count + 1, 6].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+
+                        package.Save();
+                    }
+
+                    MessageBox.Show("Экспорт завершен.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при экспорте данных: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

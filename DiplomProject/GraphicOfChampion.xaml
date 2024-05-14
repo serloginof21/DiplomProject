@@ -35,7 +35,8 @@
                     </Button>
                 </StackPanel>
 
-                <DataGrid x:Name="dgG" AutoGenerateColumns="False" Grid.Row="1" Margin="0 10 0 0">
+                <DataGrid x:Name="dgG" AutoGenerateColumns="False" Grid.Row="1" Margin="0 10 0 0" 
+                          SelectionChanged="dgG_SelectionChanged" IsReadOnly="True">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="ID" Binding="{Binding Id_Schedule}" Width="*"/>
                         <DataGridTextColumn Header="Компетенция" Binding="{Binding Competences.NameCompetence}" Width="*"/>
@@ -159,17 +160,6 @@
                                     Click="Add_ClickButton" Foreground="White" 
                                     Style="{StaticResource MaterialDesignRaisedDarkButton}"/>
 
-                    <Button x:Name="deleteBtn" Content="Удалить"
-                                    Width="150"
-                                    Height="40"
-                                    FontSize="20"
-                                    Margin="15"
-                                    FontWeight="SemiBold"
-                                    VerticalAlignment="Center"
-                                    HorizontalAlignment="Left"
-                                    Click="Delete_ClickButton" Foreground="White"
-                                    Style="{StaticResource MaterialDesignRaisedDarkButton}"/>
-
                     <Button x:Name="editBtn" Content="Редактировать"
                                      Width="200"
                                      Height="40"
@@ -181,6 +171,17 @@
                                      Click="Edit_ClickButton" Foreground="White"
                                      Style="{StaticResource MaterialDesignRaisedDarkButton}"/>
 
+                    <Button x:Name="deleteBtn" Content="Удалить"
+                                    Width="150"
+                                    Height="40"
+                                    FontSize="20"
+                                    Margin="15"
+                                    FontWeight="SemiBold"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Left"
+                                    Click="Delete_ClickButton" Foreground="White"
+                                    Style="{StaticResource MaterialDesignRaisedDarkButton}"/>
+
                     <Button x:Name="backBtn" Content="Назад"
                                     Width="150"
                                     Height="40"
@@ -191,6 +192,17 @@
                                     HorizontalAlignment="Left"
                                     Click="Back_ClickButton" Foreground="White"
                                     Style="{StaticResource MaterialDesignRaisedDarkButton}"/>
+
+                    <Button x:Name="exportBtn" Content="Экспорт"
+                            Width="150"
+                            Height="40"
+                            FontSize="20"
+                            Margin="665 0 0 0"
+                            FontWeight="SemiBold"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left"
+                            Click="Export_ClickButton" Foreground="White"
+                            Style="{StaticResource MaterialDesignRaisedDarkButton}"/>
                 </StackPanel>
             </Grid>
 
