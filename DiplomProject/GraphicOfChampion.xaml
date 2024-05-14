@@ -20,62 +20,178 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
-                    <RowDefinition Height="300"/>
-                    <RowDefinition Height="5"/>
-                    <RowDefinition Height="300"/>
+                    <RowDefinition Height="500*"/>
+                    <RowDefinition Height="377*"/>
+                    <RowDefinition Height="70"/>
                 </Grid.RowDefinitions>
 
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Компетенция:" FontWeight="SemiBold" 
-                               FontSize="25" VerticalAlignment="Center" 
-                               Margin="10"/>
+                    <Button Style="{StaticResource MaterialDesignFlatButton}" Height="30" 
+                                    Click="Exit_ClickButton" 
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    Margin="1535 0 0 0">
+                        <Image Source="Icons/TurnOff.png"/>
+                    </Button>
+                </StackPanel>
 
-                    <ComboBox x:Name="cb1"
+                <DataGrid x:Name="dgG" AutoGenerateColumns="False" Grid.Row="1" Margin="0 10 0 0">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding Id_Schedule}" Width="*"/>
+                        <DataGridTextColumn Header="Компетенция" Binding="{Binding Competences.NameCompetence}" Width="*"/>
+                        <DataGridTextColumn Header="Главный эксперт" Binding="{Binding Expert.SurnameExpert}" Width="*"/>
+                        <DataGridTextColumn Header="Эксперт-наставник" Binding="{Binding Expert1.SurnameExpert}" Width="*"/>
+                        <DataGridTextColumn Header="Технический эксперт" Binding="{Binding Expert2.SurnameExpert}" Width="*"/>
+                        <DataGridTextColumn Header="Основа начало" Binding="{Binding MainGroupStartDate, StringFormat={}{0:dd.MM}}" Width="*"/>
+                        <DataGridTextColumn Header="Основа конец" Binding="{Binding MainGroupEndDate, StringFormat={}{0:dd.MM}}" Width="*"/>
+                        <DataGridTextColumn Header="Юниоры начало" Binding="{Binding JuniorStartDate, StringFormat={}{0:dd.MM}}" Width="*"/>
+                        <DataGridTextColumn Header="Юниоры конец" Binding="{Binding JuniorEndDate, StringFormat={}{0:dd.MM}}" Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <Grid Grid.Row="2" Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="250"/>
+                        <ColumnDefinition Width="350"/>
+                        <ColumnDefinition Width="250"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="250"/>
+                        <ColumnDefinition Width="350"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    
+
+                    <TextBlock Text="Идентификатор" FontWeight="SemiBold" FontSize="20"
+                               VerticalAlignment="Center" HorizontalAlignment="Center"
+                               Grid.Row="0" Grid.Column="0"/>
+                    <TextBlock Text="Компетенция" FontWeight="SemiBold" FontSize="20"
+                               VerticalAlignment="Center" HorizontalAlignment="Center"
+                               Grid.Row="1" Grid.Column="0"/>
+                    <TextBlock Text="Главный эксперт" FontWeight="SemiBold" FontSize="20"
+                               VerticalAlignment="Center" HorizontalAlignment="Center"
+                               Grid.Row="2" Grid.Column="0"/>
+                    <TextBlock Text="Эксперт-наставник" FontWeight="SemiBold" FontSize="20"
+                               VerticalAlignment="Center" HorizontalAlignment="Center"
+                               Grid.Row="3" Grid.Column="0"/>
+                    <TextBlock Text="Технический эксперт" FontWeight="SemiBold" FontSize="20"
+                               VerticalAlignment="Center" HorizontalAlignment="Center"
+                               Grid.Row="4" Grid.Column="0"/>
+
+                    <TextBox x:Name="tbId" Grid.Row="0" HorizontalAlignment="Left" 
+                             Width="300"
+                             Height="50"
+                             Grid.Column="1"
+                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                             FontWeight="SemiBold"/>
+
+                    <Button x:Name="genBtn" Content="Генерировать" Grid.Column="2"
+                            FontSize="20"
+                            Height="40"
+                            Width="170"
+                            FontWeight="SemiBold"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left"
+                            Click="GenerationId_ClickButton" Foreground="White" 
+                Style="{StaticResource MaterialDesignRaisedDarkButton}"/>
+
+                    <ComboBox x:Name="cb1" Grid.Column="1" Grid.Row="1"
                               Width="300"
                               HorizontalAlignment="Left"
                               Style="{StaticResource MaterialDesignOutlinedComboBox}"
                               DisplayMemberPath="NameCompetence" SelectionChanged="cb1_SelectionChanged"/>
 
-                    <Button x:Name="regBtn" Content="Сбросить" Margin="10 0 0 0" 
-                        Click="Reset_ClickButton" Foreground="Black"
-                        Style="{StaticResource MaterialDesignFlatButton}" 
-                        FontWeight="SemiBold"/>
+                    <ComboBox x:Name="cb2" Grid.Column="1" Grid.Row="2"
+                              Width="300"
+                              HorizontalAlignment="Left"
+                              Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                              DisplayMemberPath="FullName"/>
 
-                    <Button Style="{StaticResource MaterialDesignFlatButton}" Height="30" 
-                                    Click="Exit_ClickButton" 
-                                    HorizontalAlignment="Right"
+                    <ComboBox x:Name="cb3" Grid.Column="1" Grid.Row="3"
+                              Width="300"
+                              HorizontalAlignment="Left"
+                              Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                              DisplayMemberPath="FullName"/>
+
+                    <ComboBox x:Name="cb4" Grid.Column="1" Grid.Row="4"
+                              Width="300"
+                              HorizontalAlignment="Left"
+                              Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                              DisplayMemberPath="FullName"/>
+
+                    <TextBlock Text="Основа начало" FontWeight="SemiBold" FontSize="20"
+                               VerticalAlignment="Center" HorizontalAlignment="Center"
+                               Grid.Row="0" Grid.Column="4"/>
+                    <TextBlock Text="Основа конец" FontWeight="SemiBold" FontSize="20"
+                               VerticalAlignment="Center" HorizontalAlignment="Center"
+                               Grid.Row="1" Grid.Column="4"/>
+                    <TextBlock Text="Юниоры начало" FontWeight="SemiBold" FontSize="20"
+                               VerticalAlignment="Center" HorizontalAlignment="Center"
+                               Grid.Row="2" Grid.Column="4"/>
+                    <TextBlock Text="Юниоры конец" FontWeight="SemiBold" FontSize="20"
+                               VerticalAlignment="Center" HorizontalAlignment="Center"
+                               Grid.Row="3" Grid.Column="4"/>
+
+                    <DatePicker x:Name="dt1" Grid.Column="5" Grid.Row="0"
+                                Style="{StaticResource MaterialDesignOutlinedDatePicker}"/>
+                    <DatePicker x:Name="dt2" Grid.Column="5" Grid.Row="1"
+                                Style="{StaticResource MaterialDesignOutlinedDatePicker}"/>
+                    <DatePicker x:Name="dt3" Grid.Column="5" Grid.Row="2"
+                                Style="{StaticResource MaterialDesignOutlinedDatePicker}"/>
+                    <DatePicker x:Name="dt4" Grid.Column="5" Grid.Row="3"
+                                Style="{StaticResource MaterialDesignOutlinedDatePicker}"/>
+                </Grid>
+
+                <StackPanel Grid.Row="3" Orientation="Horizontal">
+                    <Button x:Name="addBtn" Content="Добавить"
+                                    Width="150"
+                                    Height="40"
+                                    FontSize="20"
+                                    Margin="15"
+                                    FontWeight="SemiBold"
                                     VerticalAlignment="Center"
-                                    Margin="945 0 0 0">
-                        <Image Source="Icons/TurnOff.png"/>
-                    </Button>
+                                    HorizontalAlignment="Left"
+                                    Click="Add_ClickButton" Foreground="White" 
+                                    Style="{StaticResource MaterialDesignRaisedDarkButton}"/>
+
+                    <Button x:Name="deleteBtn" Content="Удалить"
+                                    Width="150"
+                                    Height="40"
+                                    FontSize="20"
+                                    Margin="15"
+                                    FontWeight="SemiBold"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Left"
+                                    Click="Delete_ClickButton" Foreground="White"
+                                    Style="{StaticResource MaterialDesignRaisedDarkButton}"/>
+
+                    <Button x:Name="editBtn" Content="Редактировать"
+                                     Width="200"
+                                     Height="40"
+                                     FontSize="20"
+                                     Margin="15"
+                                     FontWeight="SemiBold"
+                                     VerticalAlignment="Center"
+                                     HorizontalAlignment="Left"
+                                     Click="Edit_ClickButton" Foreground="White"
+                                     Style="{StaticResource MaterialDesignRaisedDarkButton}"/>
+
+                    <Button x:Name="backBtn" Content="Назад"
+                                    Width="150"
+                                    Height="40"
+                                    FontSize="20"
+                                    Margin="15"
+                                    FontWeight="SemiBold"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Left"
+                                    Click="Back_ClickButton" Foreground="White"
+                                    Style="{StaticResource MaterialDesignRaisedDarkButton}"/>
                 </StackPanel>
-
-                <DataGrid x:Name="dgE" AutoGenerateColumns="False" Grid.Row="1" Margin="0 10 0 0" IsReadOnly="True">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="ID" Binding="{Binding Id_Expert}" Width="*"/>
-                        <DataGridTextColumn Header="Фамилия" Binding="{Binding SurnameExpert}" Width="*"/>
-                        <DataGridTextColumn Header="Имя" Binding="{Binding NameExpert}" Width="*"/>
-                        <DataGridTextColumn Header="Отчество" Binding="{Binding PatronymicExpert}" Width="*"/>
-                        <DataGridTextColumn Header="Адрес электронной почты" Binding="{Binding EmailExpert}" Width="200"/>
-                        <DataGridTextColumn Header="Роль" Binding="{Binding ExpertRole.NameRole}" Width="*"/>
-                        <DataGridTextColumn Header="Регион" Binding="{Binding Organizations.Region}" Width="*"/>
-                        <DataGridTextColumn Header="Страна" Binding="{Binding Organizations.Country}" Width="*"/>
-                        <DataGridTextColumn Header="Телефон" Binding="{Binding PhoneNumberExpert}" Width="*"/>
-                        <DataGridTextColumn Header="Организация" Binding="{Binding Organizations.Organization}" Width="*"/>
-                        <DataGridTextColumn Header="Размер одежды" Binding="{Binding ClothingSizes.NameSize}" Width="*"/>
-                        <DataGridTextColumn Header="Компетенция" Binding="{Binding Competences.NameCompetence}" Width="*"/>
-                        <DataGridTemplateColumn Width="Auto" >
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Button x:Name="editBtn" Content="Редактировать" Margin="20 0 20 0" 
-                                Style="{StaticResource MaterialDesignFlatButton}" FontWeight="SemiBold"
-                                    Click="Chooise_ClickButton"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
-
             </Grid>
 
         </Border>

@@ -19,6 +19,7 @@ namespace DiplomProject
         {
             this.Expert = new HashSet<Expert>();
             this.Student = new HashSet<Student>();
+            this.ChampionSchedule = new HashSet<ChampionSchedule>();
         }
     
         public int Id_Competence { get; set; }
@@ -28,5 +29,7 @@ namespace DiplomProject
         public virtual ICollection<Expert> Expert { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Student> Student { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChampionSchedule> ChampionSchedule { get; set; }
     }
 }

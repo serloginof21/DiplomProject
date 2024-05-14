@@ -14,6 +14,14 @@ namespace DiplomProject
     
     public partial class Expert
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Expert()
+        {
+            this.ChampionSchedule = new HashSet<ChampionSchedule>();
+            this.ChampionSchedule1 = new HashSet<ChampionSchedule>();
+            this.ChampionSchedule2 = new HashSet<ChampionSchedule>();
+        }
+    
         public int Id_Expert { get; set; }
         public string SurnameExpert { get; set; }
         public string NameExpert { get; set; }
@@ -31,5 +39,17 @@ namespace DiplomProject
         public virtual Competences Competences { get; set; }
         public virtual Organizations Organizations { get; set; }
         public virtual ExpertRole ExpertRole { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChampionSchedule> ChampionSchedule { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChampionSchedule> ChampionSchedule1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChampionSchedule> ChampionSchedule2 { get; set; }
+
+        // Добавленное свойство для отображения полного имени эксперта
+        public string FullName
+        {
+            get { return $"{SurnameExpert} {NameExpert} {PatronymicExpert}"; }
+        }
     }
 }

@@ -4,13 +4,27 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище ChampionatModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище ChampionatModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="Id_Category" />
           </Key>
           <Property Name="Id_Category" Type="int" Nullable="false" />
           <Property Name="NameCategory" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="ChampionSchedule">
+          <Key>
+            <PropertyRef Name="Id_Schedule" />
+          </Key>
+          <Property Name="Id_Schedule" Type="int" Nullable="false" />
+          <Property Name="Id_Competence" Type="int" Nullable="false" />
+          <Property Name="Id_ChiefExpert" Type="int" Nullable="false" />
+          <Property Name="Id_MentorExpert" Type="int" Nullable="false" />
+          <Property Name="Id_TechnicalExpert" Type="int" Nullable="false" />
+          <Property Name="MainGroupStartDate" Type="date" Nullable="false" />
+          <Property Name="MainGroupEndDate" Type="date" Nullable="false" />
+          <Property Name="JuniorStartDate" Type="date" Nullable="false" />
+          <Property Name="JuniorEndDate" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="ClothingSizes">
           <Key>
@@ -76,6 +90,16 @@
           <Property Name="Id_Category" Type="int" Nullable="false" />
           <Property Name="Id_Competence" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="Id_User" />
@@ -84,6 +108,54 @@
           <Property Name="LoginUser" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="PasswordUser" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
+        <Association Name="FK__ChampionS__Id_Ch__70DDC3D8">
+          <End Role="Expert" Type="Self.Expert" Multiplicity="1" />
+          <End Role="ChampionSchedule" Type="Self.ChampionSchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Expert">
+              <PropertyRef Name="Id_Expert" />
+            </Principal>
+            <Dependent Role="ChampionSchedule">
+              <PropertyRef Name="Id_ChiefExpert" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ChampionS__Id_Co__6FE99F9F">
+          <End Role="Competences" Type="Self.Competences" Multiplicity="1" />
+          <End Role="ChampionSchedule" Type="Self.ChampionSchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Competences">
+              <PropertyRef Name="Id_Competence" />
+            </Principal>
+            <Dependent Role="ChampionSchedule">
+              <PropertyRef Name="Id_Competence" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ChampionS__Id_Me__71D1E811">
+          <End Role="Expert" Type="Self.Expert" Multiplicity="1" />
+          <End Role="ChampionSchedule" Type="Self.ChampionSchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Expert">
+              <PropertyRef Name="Id_Expert" />
+            </Principal>
+            <Dependent Role="ChampionSchedule">
+              <PropertyRef Name="Id_MentorExpert" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ChampionS__Id_Te__72C60C4A">
+          <End Role="Expert" Type="Self.Expert" Multiplicity="1" />
+          <End Role="ChampionSchedule" Type="Self.ChampionSchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Expert">
+              <PropertyRef Name="Id_Expert" />
+            </Principal>
+            <Dependent Role="ChampionSchedule">
+              <PropertyRef Name="Id_TechnicalExpert" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Expert__Id_Cloth__5BE2A6F2">
           <End Role="ClothingSizes" Type="Self.ClothingSizes" Multiplicity="1" />
           <End Role="Expert" Type="Self.Expert" Multiplicity="*" />
@@ -182,13 +254,31 @@
         </Association>
         <EntityContainer Name="Хранилище ChampionatModelContainer">
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChampionSchedule" EntityType="Self.ChampionSchedule" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClothingSizes" EntityType="Self.ClothingSizes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Competences" EntityType="Self.Competences" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Expert" EntityType="Self.Expert" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExpertRole" EntityType="Self.ExpertRole" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Organizations" EntityType="Self.Organizations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__ChampionS__Id_Ch__70DDC3D8" Association="Self.FK__ChampionS__Id_Ch__70DDC3D8">
+            <End Role="Expert" EntitySet="Expert" />
+            <End Role="ChampionSchedule" EntitySet="ChampionSchedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ChampionS__Id_Co__6FE99F9F" Association="Self.FK__ChampionS__Id_Co__6FE99F9F">
+            <End Role="Competences" EntitySet="Competences" />
+            <End Role="ChampionSchedule" EntitySet="ChampionSchedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ChampionS__Id_Me__71D1E811" Association="Self.FK__ChampionS__Id_Me__71D1E811">
+            <End Role="Expert" EntitySet="Expert" />
+            <End Role="ChampionSchedule" EntitySet="ChampionSchedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ChampionS__Id_Te__72C60C4A" Association="Self.FK__ChampionS__Id_Te__72C60C4A">
+            <End Role="Expert" EntitySet="Expert" />
+            <End Role="ChampionSchedule" EntitySet="ChampionSchedule" />
+          </AssociationSet>
           <AssociationSet Name="FK__Expert__Id_Cloth__5BE2A6F2" Association="Self.FK__Expert__Id_Cloth__5BE2A6F2">
             <End Role="ClothingSizes" EntitySet="ClothingSizes" />
             <End Role="Expert" EntitySet="Expert" />
@@ -222,8 +312,7 @@
             <End Role="Student" EntitySet="Student" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ChampionatModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -252,6 +341,7 @@
           <Property Name="NameCompetence" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Expert" Relationship="Self.FK__Expert__Id_Compe__5DCAEF64" FromRole="Competences" ToRole="Expert" />
           <NavigationProperty Name="Student" Relationship="Self.FK__Student__Id_Comp__5812160E" FromRole="Competences" ToRole="Student" />
+          <NavigationProperty Name="ChampionSchedule" Relationship="ChampionatModel.FK__ChampionS__Id_Co__6FE99F9F" FromRole="Competences" ToRole="ChampionSchedule" />
         </EntityType>
         <EntityType Name="Expert">
           <Key>
@@ -273,6 +363,9 @@
           <NavigationProperty Name="Competences" Relationship="Self.FK__Expert__Id_Compe__5DCAEF64" FromRole="Expert" ToRole="Competences" />
           <NavigationProperty Name="Organizations" Relationship="Self.FK__Expert__Id_Organ__5AEE82B9" FromRole="Expert" ToRole="Organizations" />
           <NavigationProperty Name="ExpertRole" Relationship="Self.FK__Expert__Id_Role__5CD6CB2B" FromRole="Expert" ToRole="ExpertRole" />
+          <NavigationProperty Name="ChampionSchedule" Relationship="ChampionatModel.FK__ChampionS__Id_Ch__70DDC3D8" FromRole="Expert" ToRole="ChampionSchedule" />
+          <NavigationProperty Name="ChampionSchedule1" Relationship="ChampionatModel.FK__ChampionS__Id_Me__71D1E811" FromRole="Expert" ToRole="ChampionSchedule" />
+          <NavigationProperty Name="ChampionSchedule2" Relationship="ChampionatModel.FK__ChampionS__Id_Te__72C60C4A" FromRole="Expert" ToRole="ChampionSchedule" />
         </EntityType>
         <EntityType Name="ExpertRole">
           <Key>
@@ -459,7 +552,101 @@
             <End Role="Organizations" EntitySet="Organizations" />
             <End Role="Student" EntitySet="Student" />
           </AssociationSet>
+          <EntitySet Name="ChampionSchedule" EntityType="ChampionatModel.ChampionSchedule" />
+          <EntitySet Name="sysdiagrams" EntityType="ChampionatModel.sysdiagrams" />
+          <AssociationSet Name="FK__ChampionS__Id_Ch__70DDC3D8" Association="ChampionatModel.FK__ChampionS__Id_Ch__70DDC3D8">
+            <End Role="Expert" EntitySet="Expert" />
+            <End Role="ChampionSchedule" EntitySet="ChampionSchedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ChampionS__Id_Co__6FE99F9F" Association="ChampionatModel.FK__ChampionS__Id_Co__6FE99F9F">
+            <End Role="Competences" EntitySet="Competences" />
+            <End Role="ChampionSchedule" EntitySet="ChampionSchedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ChampionS__Id_Me__71D1E811" Association="ChampionatModel.FK__ChampionS__Id_Me__71D1E811">
+            <End Role="Expert" EntitySet="Expert" />
+            <End Role="ChampionSchedule" EntitySet="ChampionSchedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ChampionS__Id_Te__72C60C4A" Association="ChampionatModel.FK__ChampionS__Id_Te__72C60C4A">
+            <End Role="Expert" EntitySet="Expert" />
+            <End Role="ChampionSchedule" EntitySet="ChampionSchedule" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="ChampionSchedule">
+          <Key>
+            <PropertyRef Name="Id_Schedule" />
+          </Key>
+          <Property Name="Id_Schedule" Type="Int32" Nullable="false" />
+          <Property Name="Id_Competence" Type="Int32" Nullable="false" />
+          <Property Name="Id_ChiefExpert" Type="Int32" Nullable="false" />
+          <Property Name="Id_MentorExpert" Type="Int32" Nullable="false" />
+          <Property Name="Id_TechnicalExpert" Type="Int32" Nullable="false" />
+          <Property Name="MainGroupStartDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="MainGroupEndDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="JuniorStartDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="JuniorEndDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Expert" Relationship="ChampionatModel.FK__ChampionS__Id_Ch__70DDC3D8" FromRole="ChampionSchedule" ToRole="Expert" />
+          <NavigationProperty Name="Competences" Relationship="ChampionatModel.FK__ChampionS__Id_Co__6FE99F9F" FromRole="ChampionSchedule" ToRole="Competences" />
+          <NavigationProperty Name="Expert1" Relationship="ChampionatModel.FK__ChampionS__Id_Me__71D1E811" FromRole="ChampionSchedule" ToRole="Expert" />
+          <NavigationProperty Name="Expert2" Relationship="ChampionatModel.FK__ChampionS__Id_Te__72C60C4A" FromRole="ChampionSchedule" ToRole="Expert" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK__ChampionS__Id_Ch__70DDC3D8">
+          <End Type="ChampionatModel.Expert" Role="Expert" Multiplicity="1" />
+          <End Type="ChampionatModel.ChampionSchedule" Role="ChampionSchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Expert">
+              <PropertyRef Name="Id_Expert" />
+            </Principal>
+            <Dependent Role="ChampionSchedule">
+              <PropertyRef Name="Id_ChiefExpert" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ChampionS__Id_Co__6FE99F9F">
+          <End Type="ChampionatModel.Competences" Role="Competences" Multiplicity="1" />
+          <End Type="ChampionatModel.ChampionSchedule" Role="ChampionSchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Competences">
+              <PropertyRef Name="Id_Competence" />
+            </Principal>
+            <Dependent Role="ChampionSchedule">
+              <PropertyRef Name="Id_Competence" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ChampionS__Id_Me__71D1E811">
+          <End Type="ChampionatModel.Expert" Role="Expert" Multiplicity="1" />
+          <End Type="ChampionatModel.ChampionSchedule" Role="ChampionSchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Expert">
+              <PropertyRef Name="Id_Expert" />
+            </Principal>
+            <Dependent Role="ChampionSchedule">
+              <PropertyRef Name="Id_MentorExpert" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ChampionS__Id_Te__72C60C4A">
+          <End Type="ChampionatModel.Expert" Role="Expert" Multiplicity="1" />
+          <End Type="ChampionatModel.ChampionSchedule" Role="ChampionSchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Expert">
+              <PropertyRef Name="Id_Expert" />
+            </Principal>
+            <Dependent Role="ChampionSchedule">
+              <PropertyRef Name="Id_TechnicalExpert" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -550,6 +737,32 @@
                 <ScalarProperty Name="Id_User" ColumnName="Id_User" />
                 <ScalarProperty Name="LoginUser" ColumnName="LoginUser" />
                 <ScalarProperty Name="PasswordUser" ColumnName="PasswordUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChampionSchedule">
+            <EntityTypeMapping TypeName="ChampionatModel.ChampionSchedule">
+              <MappingFragment StoreEntitySet="ChampionSchedule">
+                <ScalarProperty Name="JuniorEndDate" ColumnName="JuniorEndDate" />
+                <ScalarProperty Name="JuniorStartDate" ColumnName="JuniorStartDate" />
+                <ScalarProperty Name="MainGroupEndDate" ColumnName="MainGroupEndDate" />
+                <ScalarProperty Name="MainGroupStartDate" ColumnName="MainGroupStartDate" />
+                <ScalarProperty Name="Id_TechnicalExpert" ColumnName="Id_TechnicalExpert" />
+                <ScalarProperty Name="Id_MentorExpert" ColumnName="Id_MentorExpert" />
+                <ScalarProperty Name="Id_ChiefExpert" ColumnName="Id_ChiefExpert" />
+                <ScalarProperty Name="Id_Competence" ColumnName="Id_Competence" />
+                <ScalarProperty Name="Id_Schedule" ColumnName="Id_Schedule" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ChampionatModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

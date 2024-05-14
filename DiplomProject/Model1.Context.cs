@@ -33,5 +33,7 @@ namespace DiplomProject
         public virtual DbSet<Organizations> Organizations { get; set; }
         public virtual DbSet<Student> Student { get; set; }
         public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<ChampionSchedule> ChampionSchedule { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
     }
 }

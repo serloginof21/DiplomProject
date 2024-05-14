@@ -21,6 +21,12 @@
         <AssociationConnector Association="ChampionatModel.FK__Expert__Id_Organ__5AEE82B9" ManuallyRouted="false" />
         <AssociationConnector Association="ChampionatModel.FK__Expert__Id_Role__5CD6CB2B" ManuallyRouted="false" />
         <AssociationConnector Association="ChampionatModel.FK__Student__Id_Orga__5535A963" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ChampionatModel.ChampionSchedule" Width="1.5" PointX="8.25" PointY="3.625" />
+        <EntityTypeShape EntityType="ChampionatModel.sysdiagrams" Width="1.5" PointX="8.375" PointY="0.75" />
+        <AssociationConnector Association="ChampionatModel.FK__ChampionS__Id_Ch__70DDC3D8" />
+        <AssociationConnector Association="ChampionatModel.FK__ChampionS__Id_Co__6FE99F9F" />
+        <AssociationConnector Association="ChampionatModel.FK__ChampionS__Id_Me__71D1E811" />
+        <AssociationConnector Association="ChampionatModel.FK__ChampionS__Id_Te__72C60C4A" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
