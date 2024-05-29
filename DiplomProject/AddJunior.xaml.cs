@@ -15,26 +15,18 @@ using System.Windows.Shapes;
 
 namespace DiplomProject
 {
-    public partial class AddStudent : Window
+    public partial class AddJunior : Window
     {
         private Random random = new Random();
         public ChampionatEntities db = new ChampionatEntities();
 
-        public AddStudent()
+        public AddJunior()
         {
             InitializeComponent();
-
-            cb1.ItemsSource = db.Category.Where(c => c.Id_Category == 1).ToList(); ;
+            cb1.ItemsSource = db.Category.Where(c => c.Id_Category == 2).ToList();
             cb2.ItemsSource = db.Organizations.ToList();
             cb3.ItemsSource = db.ClothingSizes.ToList();
             cb4.ItemsSource = db.Competences.ToList();
-        }
-
-        private void Back_ClickButton(object sender, RoutedEventArgs e)
-        {
-            Students stWin = new Students();
-            stWin.Show();
-            this.Close();
         }
 
         private void GenerationId_ClickButton(object sender, RoutedEventArgs e)
@@ -53,27 +45,8 @@ namespace DiplomProject
                 newID = new string(Enumerable.Repeat(chars, 6)
                     .Select(s => s[random.Next(s.Length)]).ToArray());
                 randomID = int.Parse(newID);
-            } while (db.Student.Any(p => p.Id_Student == randomID));
+            } while (db.Junior.Any(p => p.Id_Junior == randomID));
             return newID;
-        }
-
-        private bool FieldsAreValid()
-        {
-            return !string.IsNullOrWhiteSpace(tb1.Text) &&
-                   !string.IsNullOrWhiteSpace(tb2.Text) &&
-                   !string.IsNullOrWhiteSpace(tb3.Text) &&
-                   !string.IsNullOrWhiteSpace(tb4.Text) &&
-                   !string.IsNullOrWhiteSpace(tb6.Text) &&
-                   !string.IsNullOrWhiteSpace(tb7.Text) &&
-                   cb1.SelectedItem != null &&
-                   cb2.SelectedItem != null &&
-                   cb3.SelectedItem != null;
-        }
-
-        public bool IsValidEmail(string email)
-        {
-            string pattern = @"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$";
-            return Regex.IsMatch(email, pattern);
         }
 
         private void Add_ClickButton(object sender, RoutedEventArgs e)
@@ -92,20 +65,20 @@ namespace DiplomProject
 
             try
             {
-                Student s = new Student();
-                s.Id_Student = Convert.ToInt32(tbId.Text);
-                s.SurnameStudent = tb1.Text;
-                s.NameStudent = tb2.Text;
-                s.PatronymicStudent = tb3.Text;
-                s.EmailStudent = tb4.Text;
-                s.RegionStudent = tb5.Text;
-                s.CountryStudent = tb6.Text;
-                s.PhoneNumberStudent = tb7.Text;
+                Junior j = new Junior();
+                j.Id_Junior = Convert.ToInt32(tbId.Text);
+                j.SurnameJunior = tb1.Text;
+                j.NameJunior = tb2.Text;
+                j.PatronymicJunior = tb3.Text;
+                j.EmailJunior = tb4.Text;
+                j.RegionJunior = tb5.Text;
+                j.CountryJunior = tb6.Text;
+                j.PhoneNumberJunior = tb7.Text;
 
                 Category selectedCategory = cb1.SelectedItem as Category;
                 if (selectedCategory != null)
                 {
-                    s.Id_Category = selectedCategory.Id_Category;
+                    j.Id_Category = selectedCategory.Id_Category;
                 }
                 else
                 {
@@ -116,7 +89,7 @@ namespace DiplomProject
                 Organizations selectedOrganization = cb2.SelectedItem as Organizations;
                 if (selectedOrganization != null)
                 {
-                    s.Id_Organization = selectedOrganization.Id_Organization;
+                    j.Id_Organization = selectedOrganization.Id_Organization;
                 }
                 else
                 {
@@ -127,7 +100,7 @@ namespace DiplomProject
                 ClothingSizes selectedSize = cb3.SelectedItem as ClothingSizes;
                 if (selectedSize != null)
                 {
-                    s.Id_ClothingSizeStudent = selectedSize.Id_ClothingSize;
+                    j.Id_ClothingSizeJunior = selectedSize.Id_ClothingSize;
                 }
                 else
                 {
@@ -138,7 +111,7 @@ namespace DiplomProject
                 Competences selectedCompetence = cb4.SelectedItem as Competences;
                 if (selectedCompetence != null)
                 {
-                    s.Id_Competence = selectedCompetence.Id_Competence;
+                    j.Id_Competence = selectedCompetence.Id_Competence;
                 }
                 else
                 {
@@ -150,7 +123,7 @@ namespace DiplomProject
 
                 if (result == MessageBoxResult.Yes)
                 {
-                    db.Student.Add(s);
+                    db.Junior.Add(j);
                     db.SaveChanges();
                     MessageBox.Show("Данные успешно добавлены в базу данных.");
                 }
@@ -159,6 +132,13 @@ namespace DiplomProject
             {
                 MessageBox.Show($"Ошибка при добавлении данных в базу данных: {ex.Message}");
             }
+        }
+
+        private void Back_ClickButton(object sender, RoutedEventArgs e)
+        {
+            Juniors junWin = new Juniors();
+            junWin.Show();
+            this.Close();
         }
 
         private void cb2_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -170,6 +150,24 @@ namespace DiplomProject
                 tb6.Text = selectedOrganization.Country;
                 tb5.Text = selectedOrganization.Region;
             }
+        }
+
+        private bool FieldsAreValid()
+        {
+            return !string.IsNullOrWhiteSpace(tb1.Text) &&
+                   !string.IsNullOrWhiteSpace(tb2.Text) &&
+                   !string.IsNullOrWhiteSpace(tb3.Text) &&
+                   !string.IsNullOrWhiteSpace(tb4.Text) &&
+                   !string.IsNullOrWhiteSpace(tb6.Text) &&
+                   !string.IsNullOrWhiteSpace(tb7.Text) &&
+                   cb1.SelectedItem != null &&
+                   cb2.SelectedItem != null &&
+                   cb3.SelectedItem != null;
+        }
+        public bool IsValidEmail(string email)
+        {
+            string pattern = @"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$";
+            return Regex.IsMatch(email, pattern);
         }
     }
 }

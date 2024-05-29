@@ -33,6 +33,10 @@
                         Click="Students_ClickButton" Foreground="White" 
                         Style="{StaticResource MaterialDesignRaisedDarkButton}"/>
 
+                <Button x:Name="JuniorsBtn" Content="Юниоры" Margin="10" 
+                        Click="Juniors_ClickButton" Foreground="White" 
+                        Style="{StaticResource MaterialDesignRaisedDarkButton}"/>
+
                 <Button x:Name="expertBtn" Content="Эксперты" Margin="10" 
                         Click="Experts_ClickButton" Foreground="White" 
                         Style="{StaticResource MaterialDesignRaisedDarkButton}"/>

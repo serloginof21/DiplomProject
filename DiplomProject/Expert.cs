@@ -46,7 +46,6 @@ namespace DiplomProject
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChampionSchedule> ChampionSchedule2 { get; set; }
 
-        // Добавленное свойство для отображения полного имени эксперта
         public string FullName
         {
             get { return $"{SurnameExpert} {NameExpert} {PatronymicExpert}"; }

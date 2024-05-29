@@ -56,5 +56,12 @@ namespace DiplomProject
         {
             Application.Current.Shutdown();
         }
+
+        private void Juniors_ClickButton(object sender, RoutedEventArgs e)
+        {
+            Juniors junWin = new Juniors();
+            junWin.Show();
+            this.Close();
+        }
     }
 }

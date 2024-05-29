@@ -40,6 +40,15 @@ namespace DiplomProject
             Expert selectedItem = dgE.SelectedItem as Expert;
             if (selectedItem != null)
             {
+                // Проверка на использование эксперта в другой таблице
+                bool isUsed = db.ChampionSchedule.Any(x => x.Id_ChiefExpert == selectedItem.Id_Expert || x.Id_MentorExpert == selectedItem.Id_Expert || x.Id_TechnicalExpert == selectedItem.Id_Expert);
+
+                if (isUsed)
+                {
+                    MessageBox.Show("Данный эксперт используется в другой таблице!", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
                 MessageBoxResult result = MessageBox.Show("Вы уверены, что хотите удалить эту запись?", "Подтверждение удаления", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                 if (result == MessageBoxResult.Yes)
@@ -53,8 +62,9 @@ namespace DiplomProject
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show($"Ошибка удаления записи: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show($"Этот эксперт используется в другой таблице", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
+                    MessageBox.Show("Запись успешно удалена", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             else
@@ -85,12 +95,12 @@ namespace DiplomProject
         private void tbSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
             string searchText = tbSearch.Text.ToLower();
-            List<Expert> filteredParticipants = allExperts.Where(participant =>
-                participant.SurnameExpert.ToLower().Contains(searchText) ||
-                participant.NameExpert.ToLower().Contains(searchText) ||
-                participant.PatronymicExpert.ToLower().Contains(searchText)
+            List<Expert> filteredExperts = allExperts.Where(expert =>
+                expert.SurnameExpert.ToLower().Contains(searchText) ||
+                expert.NameExpert.ToLower().Contains(searchText) ||
+                expert.PatronymicExpert.ToLower().Contains(searchText)
             ).ToList();
-            dgE.ItemsSource = filteredParticipants;
+            dgE.ItemsSource = filteredExperts;
         }
 
         private void Exit_ClickButton(object sender, RoutedEventArgs e)

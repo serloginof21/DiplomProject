@@ -18,6 +18,7 @@ namespace DiplomProject
         public Category()
         {
             this.Student = new HashSet<Student>();
+            this.Junior = new HashSet<Junior>();
         }
     
         public int Id_Category { get; set; }
@@ -25,5 +26,7 @@ namespace DiplomProject
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Student> Student { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Junior> Junior { get; set; }
     }
 }

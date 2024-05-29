@@ -34,7 +34,7 @@ namespace DiplomProject
             tb6.Text = selectedStudent.Organizations.Country;
             tb7.Text = selectedStudent.PhoneNumberStudent;
 
-            cb1.ItemsSource = db.Category.ToList();
+            cb1.ItemsSource = db.Category.Where(c => c.Id_Category == 1).ToList();
             cb1.SelectedItem = db.Category.FirstOrDefault(r => r.NameCategory == selectedStudent.Category.NameCategory);
 
             cb2.ItemsSource = db.Organizations.ToList();

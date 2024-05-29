@@ -14,20 +14,17 @@ using System.Windows.Shapes;
 
 namespace DiplomProject
 {
-    public partial class Students : Window
+    public partial class Juniors : Window
     {
-        public ChampionatEntities db;
-        private List<Student> allStudent;
-
-        public Students()
+        ChampionatEntities db;
+        private List<Junior> allJunior;
+        public Juniors()
         {
             InitializeComponent();
             db = new ChampionatEntities();
-            allStudent = db.Student.ToList();
-            dgS.ItemsSource = db.Student.ToList();
-            tbSearch.TextChanged += tbSearch_TextChanged;
+            allJunior = db.Junior.ToList();
+            dgJ.ItemsSource = db.Junior.ToList();
         }
-
 
         private void Exit_ClickButton(object sender, RoutedEventArgs e)
         {
@@ -36,26 +33,26 @@ namespace DiplomProject
 
         private void Add_ClickButton(object sender, RoutedEventArgs e)
         {
-            AddStudent addStWin = new AddStudent();
-            addStWin.Show();
+            AddJunior junWin = new AddJunior();
+            junWin.Show();
             this.Close();
         }
 
         private void Delete_ClickButton(object sender, RoutedEventArgs e)
         {
-            Student selectedItem = dgS.SelectedItem as Student;
+            Junior selectedItem = dgJ.SelectedItem as Junior;
             if (selectedItem != null)
             {
                 MessageBoxResult result = MessageBox.Show("Вы уверены, что хотите удалить эту запись?", "Подтверждение удаления", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                 if (result == MessageBoxResult.Yes)
                 {
-                    db.Student.Remove(selectedItem);
+                    db.Junior.Remove(selectedItem);
 
                     try
                     {
                         db.SaveChanges();
-                        dgS.ItemsSource = db.Student.ToList();
+                        dgJ.ItemsSource = db.Junior.ToList();
                     }
                     catch (Exception ex)
                     {
@@ -73,11 +70,11 @@ namespace DiplomProject
 
         private void Edit_ClickButton(object sender, RoutedEventArgs e)
         {
-            Student selectedItem = dgS.SelectedItem as Student;
+            Junior selectedItem = dgJ.SelectedItem as Junior;
 
             if (selectedItem != null)
             {
-                EditStudents editWindow = new EditStudents(selectedItem, db);
+                EditJunior editWindow = new EditJunior(selectedItem, db);
 
                 editWindow.Show();
                 this.Close();
@@ -94,12 +91,12 @@ namespace DiplomProject
         private void tbSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
             string searchText = tbSearch.Text.ToLower();
-            List<Student> filteredStudents = allStudent.Where(student =>
-                student.SurnameStudent.ToLower().Contains(searchText) ||
-                student.NameStudent.ToLower().Contains(searchText) ||
-                student.PatronymicStudent.ToLower().Contains(searchText)
+            List<Junior> filteredJuniors = allJunior.Where(junior =>
+                junior.SurnameJunior.ToLower().Contains(searchText) ||
+                junior.NameJunior.ToLower().Contains(searchText) ||
+                junior.PatronymicJunior.ToLower().Contains(searchText)
             ).ToList();
-            dgS.ItemsSource = filteredStudents;
+            dgJ.ItemsSource = filteredJuniors;
         }
     }
 }

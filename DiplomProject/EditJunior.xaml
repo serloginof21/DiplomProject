@@ -1,4 +1,4 @@
-﻿<Window x:Class="DiplomProject.EditExperts"
+﻿<Window x:Class="DiplomProject.EditJunior"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -59,7 +59,7 @@
                            VerticalAlignment="Center" HorizontalAlignment="Center"
                            Grid.Row="4"/>
 
-                <TextBlock Text="Роль" FontWeight="SemiBold" FontSize="15"
+                <TextBlock Text="Категория" FontWeight="SemiBold" FontSize="15"
                            VerticalAlignment="Center" HorizontalAlignment="Center"
                            Grid.Row="5"/>
 
@@ -166,7 +166,7 @@
                                   Width="300"
                                   HorizontalAlignment="Left"
                                   Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                                  DisplayMemberPath="NameRole"/>
+                                  DisplayMemberPath="NameCategory"/>
 
                 <ComboBox x:Name="cb2" Grid.Column="1" Grid.Row="6"
                                   Width="300"

@@ -26,6 +26,7 @@ namespace DiplomProject
             db = new ChampionatEntities();
             dgList.ItemsSource = db.Student.ToList();
             cb1.ItemsSource = db.Competences.ToList();
+            cb2.ItemsSource = db.Category.ToList();
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
         }
 
@@ -116,6 +117,11 @@ namespace DiplomProject
         {
             cb1.SelectedIndex = -1;
             dgList.ItemsSource = db.Student.ToList();
+        }
+
+        private void cb2_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

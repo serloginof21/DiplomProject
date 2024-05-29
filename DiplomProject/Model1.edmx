@@ -64,6 +64,23 @@
           <Property Name="Id_Role" Type="int" Nullable="false" />
           <Property Name="NameRole" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
+        <EntityType Name="Junior">
+          <Key>
+            <PropertyRef Name="Id_Junior" />
+          </Key>
+          <Property Name="Id_Junior" Type="int" Nullable="false" />
+          <Property Name="SurnameJunior" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="NameJunior" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="PatronymicJunior" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="EmailJunior" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="PhoneNumberJunior" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="RegionJunior" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="CountryJunior" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Id_Organization" Type="int" Nullable="false" />
+          <Property Name="Id_ClothingSizeJunior" Type="int" Nullable="false" />
+          <Property Name="Id_Category" Type="int" Nullable="false" />
+          <Property Name="Id_Competence" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Organizations">
           <Key>
             <PropertyRef Name="Id_Organization" />
@@ -204,6 +221,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Junior__Id_Categ__04E4BC85">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="Junior" Type="Self.Junior" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id_Category" />
+            </Principal>
+            <Dependent Role="Junior">
+              <PropertyRef Name="Id_Category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Junior__Id_Cloth__03F0984C">
+          <End Role="ClothingSizes" Type="Self.ClothingSizes" Multiplicity="1" />
+          <End Role="Junior" Type="Self.Junior" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClothingSizes">
+              <PropertyRef Name="Id_ClothingSize" />
+            </Principal>
+            <Dependent Role="Junior">
+              <PropertyRef Name="Id_ClothingSizeJunior" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Junior__Id_Compe__05D8E0BE">
+          <End Role="Competences" Type="Self.Competences" Multiplicity="1" />
+          <End Role="Junior" Type="Self.Junior" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Competences">
+              <PropertyRef Name="Id_Competence" />
+            </Principal>
+            <Dependent Role="Junior">
+              <PropertyRef Name="Id_Competence" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Junior__Id_Organ__02FC7413">
+          <End Role="Organizations" Type="Self.Organizations" Multiplicity="1" />
+          <End Role="Junior" Type="Self.Junior" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Organizations">
+              <PropertyRef Name="Id_Organization" />
+            </Principal>
+            <Dependent Role="Junior">
+              <PropertyRef Name="Id_Organization" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Student__Id_Cate__571DF1D5">
           <End Role="Category" Type="Self.Category" Multiplicity="1" />
           <End Role="Student" Type="Self.Student" Multiplicity="*" />
@@ -259,6 +324,7 @@
           <EntitySet Name="Competences" EntityType="Self.Competences" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Expert" EntityType="Self.Expert" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExpertRole" EntityType="Self.ExpertRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Junior" EntityType="Self.Junior" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Organizations" EntityType="Self.Organizations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
@@ -295,6 +361,22 @@
             <End Role="ExpertRole" EntitySet="ExpertRole" />
             <End Role="Expert" EntitySet="Expert" />
           </AssociationSet>
+          <AssociationSet Name="FK__Junior__Id_Categ__04E4BC85" Association="Self.FK__Junior__Id_Categ__04E4BC85">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Junior" EntitySet="Junior" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Junior__Id_Cloth__03F0984C" Association="Self.FK__Junior__Id_Cloth__03F0984C">
+            <End Role="ClothingSizes" EntitySet="ClothingSizes" />
+            <End Role="Junior" EntitySet="Junior" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Junior__Id_Compe__05D8E0BE" Association="Self.FK__Junior__Id_Compe__05D8E0BE">
+            <End Role="Competences" EntitySet="Competences" />
+            <End Role="Junior" EntitySet="Junior" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Junior__Id_Organ__02FC7413" Association="Self.FK__Junior__Id_Organ__02FC7413">
+            <End Role="Organizations" EntitySet="Organizations" />
+            <End Role="Junior" EntitySet="Junior" />
+          </AssociationSet>
           <AssociationSet Name="FK__Student__Id_Cate__571DF1D5" Association="Self.FK__Student__Id_Cate__571DF1D5">
             <End Role="Category" EntitySet="Category" />
             <End Role="Student" EntitySet="Student" />
@@ -323,6 +405,7 @@
           <Property Name="Id_Category" Type="Int32" Nullable="false" />
           <Property Name="NameCategory" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Student" Relationship="Self.FK__Student__Id_Cate__571DF1D5" FromRole="Category" ToRole="Student" />
+          <NavigationProperty Name="Junior" Relationship="ChampionatModel.FK__Junior__Id_Categ__04E4BC85" FromRole="Category" ToRole="Junior" />
         </EntityType>
         <EntityType Name="ClothingSizes">
           <Key>
@@ -332,6 +415,7 @@
           <Property Name="NameSize" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Expert" Relationship="Self.FK__Expert__Id_Cloth__5BE2A6F2" FromRole="ClothingSizes" ToRole="Expert" />
           <NavigationProperty Name="Student" Relationship="Self.FK__Student__Id_Clot__5629CD9C" FromRole="ClothingSizes" ToRole="Student" />
+          <NavigationProperty Name="Junior" Relationship="ChampionatModel.FK__Junior__Id_Cloth__03F0984C" FromRole="ClothingSizes" ToRole="Junior" />
         </EntityType>
         <EntityType Name="Competences">
           <Key>
@@ -342,6 +426,7 @@
           <NavigationProperty Name="Expert" Relationship="Self.FK__Expert__Id_Compe__5DCAEF64" FromRole="Competences" ToRole="Expert" />
           <NavigationProperty Name="Student" Relationship="Self.FK__Student__Id_Comp__5812160E" FromRole="Competences" ToRole="Student" />
           <NavigationProperty Name="ChampionSchedule" Relationship="ChampionatModel.FK__ChampionS__Id_Co__6FE99F9F" FromRole="Competences" ToRole="ChampionSchedule" />
+          <NavigationProperty Name="Junior" Relationship="ChampionatModel.FK__Junior__Id_Compe__05D8E0BE" FromRole="Competences" ToRole="Junior" />
         </EntityType>
         <EntityType Name="Expert">
           <Key>
@@ -385,6 +470,7 @@
           <Property Name="Organization" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Expert" Relationship="Self.FK__Expert__Id_Organ__5AEE82B9" FromRole="Organizations" ToRole="Expert" />
           <NavigationProperty Name="Student" Relationship="Self.FK__Student__Id_Orga__5535A963" FromRole="Organizations" ToRole="Student" />
+          <NavigationProperty Name="Junior" Relationship="ChampionatModel.FK__Junior__Id_Organ__02FC7413" FromRole="Organizations" ToRole="Junior" />
         </EntityType>
         <EntityType Name="Student">
           <Key>
@@ -570,6 +656,23 @@
             <End Role="Expert" EntitySet="Expert" />
             <End Role="ChampionSchedule" EntitySet="ChampionSchedule" />
           </AssociationSet>
+          <EntitySet Name="Junior" EntityType="ChampionatModel.Junior" />
+          <AssociationSet Name="FK__Junior__Id_Categ__04E4BC85" Association="ChampionatModel.FK__Junior__Id_Categ__04E4BC85">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Junior" EntitySet="Junior" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Junior__Id_Cloth__03F0984C" Association="ChampionatModel.FK__Junior__Id_Cloth__03F0984C">
+            <End Role="ClothingSizes" EntitySet="ClothingSizes" />
+            <End Role="Junior" EntitySet="Junior" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Junior__Id_Compe__05D8E0BE" Association="ChampionatModel.FK__Junior__Id_Compe__05D8E0BE">
+            <End Role="Competences" EntitySet="Competences" />
+            <End Role="Junior" EntitySet="Junior" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Junior__Id_Organ__02FC7413" Association="ChampionatModel.FK__Junior__Id_Organ__02FC7413">
+            <End Role="Organizations" EntitySet="Organizations" />
+            <End Role="Junior" EntitySet="Junior" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="ChampionSchedule">
           <Key>
@@ -644,6 +747,75 @@
             </Principal>
             <Dependent Role="ChampionSchedule">
               <PropertyRef Name="Id_TechnicalExpert" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Junior">
+          <Key>
+            <PropertyRef Name="Id_Junior" />
+          </Key>
+          <Property Name="Id_Junior" Type="Int32" Nullable="false" />
+          <Property Name="SurnameJunior" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="NameJunior" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PatronymicJunior" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="EmailJunior" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNumberJunior" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="RegionJunior" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CountryJunior" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Id_Organization" Type="Int32" Nullable="false" />
+          <Property Name="Id_ClothingSizeJunior" Type="Int32" Nullable="false" />
+          <Property Name="Id_Category" Type="Int32" Nullable="false" />
+          <Property Name="Id_Competence" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Category" Relationship="ChampionatModel.FK__Junior__Id_Categ__04E4BC85" FromRole="Junior" ToRole="Category" />
+          <NavigationProperty Name="ClothingSizes" Relationship="ChampionatModel.FK__Junior__Id_Cloth__03F0984C" FromRole="Junior" ToRole="ClothingSizes" />
+          <NavigationProperty Name="Competences" Relationship="ChampionatModel.FK__Junior__Id_Compe__05D8E0BE" FromRole="Junior" ToRole="Competences" />
+          <NavigationProperty Name="Organizations" Relationship="ChampionatModel.FK__Junior__Id_Organ__02FC7413" FromRole="Junior" ToRole="Organizations" />
+        </EntityType>
+        <Association Name="FK__Junior__Id_Categ__04E4BC85">
+          <End Type="ChampionatModel.Category" Role="Category" Multiplicity="1" />
+          <End Type="ChampionatModel.Junior" Role="Junior" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id_Category" />
+            </Principal>
+            <Dependent Role="Junior">
+              <PropertyRef Name="Id_Category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Junior__Id_Cloth__03F0984C">
+          <End Type="ChampionatModel.ClothingSizes" Role="ClothingSizes" Multiplicity="1" />
+          <End Type="ChampionatModel.Junior" Role="Junior" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClothingSizes">
+              <PropertyRef Name="Id_ClothingSize" />
+            </Principal>
+            <Dependent Role="Junior">
+              <PropertyRef Name="Id_ClothingSizeJunior" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Junior__Id_Compe__05D8E0BE">
+          <End Type="ChampionatModel.Competences" Role="Competences" Multiplicity="1" />
+          <End Type="ChampionatModel.Junior" Role="Junior" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Competences">
+              <PropertyRef Name="Id_Competence" />
+            </Principal>
+            <Dependent Role="Junior">
+              <PropertyRef Name="Id_Competence" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Junior__Id_Organ__02FC7413">
+          <End Type="ChampionatModel.Organizations" Role="Organizations" Multiplicity="1" />
+          <End Type="ChampionatModel.Junior" Role="Junior" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Organizations">
+              <PropertyRef Name="Id_Organization" />
+            </Principal>
+            <Dependent Role="Junior">
+              <PropertyRef Name="Id_Organization" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -763,6 +935,24 @@
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />
                 <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Junior">
+            <EntityTypeMapping TypeName="ChampionatModel.Junior">
+              <MappingFragment StoreEntitySet="Junior">
+                <ScalarProperty Name="Id_Competence" ColumnName="Id_Competence" />
+                <ScalarProperty Name="Id_Category" ColumnName="Id_Category" />
+                <ScalarProperty Name="Id_ClothingSizeJunior" ColumnName="Id_ClothingSizeJunior" />
+                <ScalarProperty Name="Id_Organization" ColumnName="Id_Organization" />
+                <ScalarProperty Name="CountryJunior" ColumnName="CountryJunior" />
+                <ScalarProperty Name="RegionJunior" ColumnName="RegionJunior" />
+                <ScalarProperty Name="PhoneNumberJunior" ColumnName="PhoneNumberJunior" />
+                <ScalarProperty Name="EmailJunior" ColumnName="EmailJunior" />
+                <ScalarProperty Name="PatronymicJunior" ColumnName="PatronymicJunior" />
+                <ScalarProperty Name="NameJunior" ColumnName="NameJunior" />
+                <ScalarProperty Name="SurnameJunior" ColumnName="SurnameJunior" />
+                <ScalarProperty Name="Id_Junior" ColumnName="Id_Junior" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

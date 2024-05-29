@@ -27,6 +27,11 @@
         <AssociationConnector Association="ChampionatModel.FK__ChampionS__Id_Co__6FE99F9F" />
         <AssociationConnector Association="ChampionatModel.FK__ChampionS__Id_Me__71D1E811" />
         <AssociationConnector Association="ChampionatModel.FK__ChampionS__Id_Te__72C60C4A" />
+        <EntityTypeShape EntityType="ChampionatModel.Junior" Width="1.5" PointX="6" PointY="8.75" />
+        <AssociationConnector Association="ChampionatModel.FK__Junior__Id_Categ__04E4BC85" />
+        <AssociationConnector Association="ChampionatModel.FK__Junior__Id_Cloth__03F0984C" />
+        <AssociationConnector Association="ChampionatModel.FK__Junior__Id_Compe__05D8E0BE" />
+        <AssociationConnector Association="ChampionatModel.FK__Junior__Id_Organ__02FC7413" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

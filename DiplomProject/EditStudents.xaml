@@ -117,7 +117,8 @@
                                  Height="50"
                                  Grid.Column="1"
                                  Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                 FontWeight="SemiBold"/>
+                                 FontWeight="SemiBold"
+                                 IsReadOnly="True"/>
 
                 <TextBox x:Name="tb1" Grid.Row="1" HorizontalAlignment="Left" 
                                  Width="300"
