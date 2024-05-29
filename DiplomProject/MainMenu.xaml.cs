@@ -63,5 +63,12 @@ namespace DiplomProject
             junWin.Show();
             this.Close();
         }
+
+        private void Winners_ClickButton(object sender, RoutedEventArgs e)
+        {
+            GraphicOfWinners graphicOfWinners = new GraphicOfWinners();
+            graphicOfWinners.Show();
+            this.Close();
+        }
     }
 }

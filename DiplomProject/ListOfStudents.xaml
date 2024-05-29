@@ -54,25 +54,25 @@
                                     Click="Exit_ClickButton" 
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Center"
-                                    Margin="945 0 0 0">
+                                    Margin="500 0 0 0">
                         <Image Source="Icons/TurnOff.png"/>
                     </Button>
                 </StackPanel>
 
                 <DataGrid x:Name="dgList" AutoGenerateColumns="False" Grid.Row="1" Margin="0 10 0 0" IsReadOnly="True">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="ID" Binding="{Binding Id_Student}" Width="*"/>
-                        <DataGridTextColumn Header="Фамилия" Binding="{Binding SurnameStudent}" Width="*"/>
-                        <DataGridTextColumn Header="Имя" Binding="{Binding NameStudent}" Width="*"/>
-                        <DataGridTextColumn Header="Отчество" Binding="{Binding PatronymicStudent}" Width="*"/>
-                        <DataGridTextColumn Header="Адрес электронной почты" Binding="{Binding EmailStudent}" Width="200"/>
-                        <DataGridTextColumn Header="Регион" Binding="{Binding Organizations.Region}" Width="*"/>
-                        <DataGridTextColumn Header="Страна" Binding="{Binding Organizations.Country}" Width="*"/>
-                        <DataGridTextColumn Header="Телефон" Binding="{Binding PhoneNumberStudent}" Width="*"/>
-                        <DataGridTextColumn Header="Организация" Binding="{Binding Organizations.Organization}" Width="*"/>
-                        <DataGridTextColumn Header="Размер одежды" Binding="{Binding ClothingSizes.NameSize}" Width="*"/>
-                        <DataGridTextColumn Header="Категория" Binding="{Binding Category.NameCategory}" Width="*"/>
-                        <DataGridTextColumn Header="Компетенция" Binding="{Binding Competences.NameCompetence}" Width="*"/>
+                        <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="*"/>
+                        <DataGridTextColumn Header="Фамилия" Binding="{Binding Surname}" Width="*"/>
+                        <DataGridTextColumn Header="Имя" Binding="{Binding Name}" Width="*"/>
+                        <DataGridTextColumn Header="Отчество" Binding="{Binding Patronymic}" Width="*"/>
+                        <DataGridTextColumn Header="Адрес электронной почты" Binding="{Binding Email}" Width="200"/>
+                        <DataGridTextColumn Header="Регион" Binding="{Binding Region}" Width="*"/>
+                        <DataGridTextColumn Header="Страна" Binding="{Binding Country}" Width="*"/>
+                        <DataGridTextColumn Header="Телефон" Binding="{Binding PhoneNumber}" Width="*"/>
+                        <DataGridTextColumn Header="Организация" Binding="{Binding Organization}" Width="*"/>
+                        <DataGridTextColumn Header="Размер одежды" Binding="{Binding ClothingSize}" Width="*"/>
+                        <DataGridTextColumn Header="Категория" Binding="{Binding Category}" Width="*"/>
+                        <DataGridTextColumn Header="Компетенция" Binding="{Binding Competence}" Width="*"/>
                     </DataGrid.Columns>
                 </DataGrid>
 

@@ -175,6 +175,9 @@
     <Compile Include="GraphicOfChampion.xaml.cs">
       <DependentUpon>GraphicOfChampion.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GraphicOfWinners.xaml.cs">
+      <DependentUpon>GraphicOfWinners.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Junior.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -208,6 +211,7 @@
     <Compile Include="Student.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="StudentJuniorViewModel.cs" />
     <Compile Include="Students.xaml.cs">
       <DependentUpon>Students.xaml</DependentUpon>
     </Compile>
@@ -291,6 +295,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GraphicOfChampion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GraphicOfWinners.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

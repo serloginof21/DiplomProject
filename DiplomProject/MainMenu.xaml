@@ -24,7 +24,7 @@
                     <Image Source="Icons/TurnOff.png"/>
                 </Button>
 
-                <Image Source="Icons/CompanyLogo.jpg" Height="125"/>
+                <Image Source="Icons/CompanyLogo.jpg" Height="115"/>
 
                 <TextBlock Text="Меню" FontSize="30" FontWeight="Bold" 
                            HorizontalAlignment="Center"/>
@@ -47,6 +47,10 @@
 
                 <Button x:Name="GraphisOfChampionBtn" Content="График проведения" Margin="10" 
                         Click="GraphisOfChampion_ClickButton" Foreground="White" 
+                        Style="{StaticResource MaterialDesignRaisedDarkButton}"/>
+
+                <Button x:Name="WinnersBtn" Content="Победители чемпионата" Margin="10" 
+                        Click="Winners_ClickButton" Foreground="White" 
                         Style="{StaticResource MaterialDesignRaisedDarkButton}"/>
             </StackPanel>
         </Border>
