@@ -11,8 +11,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using OxyPlot;
-using OxyPlot.Series;
 
 namespace DiplomProject
 {
@@ -98,7 +96,7 @@ namespace DiplomProject
             }
         }
 
-        private void tbSearch_TextChanged(object sender, TextChangedEventArgs e)
+        private void cb1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }
