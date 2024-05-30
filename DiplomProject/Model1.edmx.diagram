@@ -32,6 +32,12 @@
         <AssociationConnector Association="ChampionatModel.FK__Junior__Id_Cloth__03F0984C" />
         <AssociationConnector Association="ChampionatModel.FK__Junior__Id_Compe__05D8E0BE" />
         <AssociationConnector Association="ChampionatModel.FK__Junior__Id_Organ__02FC7413" />
+        <EntityTypeShape EntityType="ChampionatModel.CampionatStages" Width="1.5" PointX="9" PointY="8.125" />
+        <EntityTypeShape EntityType="ChampionatModel.PlaceOfWinners" Width="1.5" PointX="10.375" PointY="0.875" />
+        <EntityTypeShape EntityType="ChampionatModel.StudentWinner" Width="1.5" PointX="13.625" PointY="4.125" />
+        <AssociationConnector Association="ChampionatModel.FK__StudentWi__Id_Ch__208CD6FA" />
+        <AssociationConnector Association="ChampionatModel.FK__StudentWi__Id_Wi__2180FB33" />
+        <AssociationConnector Association="ChampionatModel.FK__StudentWi__Id_Wi__1F98B2C1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

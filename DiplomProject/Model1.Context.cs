@@ -36,5 +36,8 @@ namespace DiplomProject
         public virtual DbSet<ChampionSchedule> ChampionSchedule { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Junior> Junior { get; set; }
+        public virtual DbSet<CampionatStages> CampionatStages { get; set; }
+        public virtual DbSet<PlaceOfWinners> PlaceOfWinners { get; set; }
+        public virtual DbSet<StudentWinner> StudentWinner { get; set; }
     }
 }

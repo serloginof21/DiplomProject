@@ -5,6 +5,13 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="Хранилище ChampionatModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CampionatStages">
+          <Key>
+            <PropertyRef Name="Id_Stage" />
+          </Key>
+          <Property Name="Id_Stage" Type="int" Nullable="false" />
+          <Property Name="NameStage" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="Id_Category" />
@@ -90,6 +97,13 @@
           <Property Name="Region" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Organization" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
+        <EntityType Name="PlaceOfWinners">
+          <Key>
+            <PropertyRef Name="Id_Place" />
+          </Key>
+          <Property Name="Id_Place" Type="int" Nullable="false" />
+          <Property Name="NamePlace" Type="varchar" MaxLength="25" Nullable="false" />
+        </EntityType>
         <EntityType Name="Student">
           <Key>
             <PropertyRef Name="Id_Student" />
@@ -106,6 +120,16 @@
           <Property Name="Id_ClothingSizeStudent" Type="int" Nullable="false" />
           <Property Name="Id_Category" Type="int" Nullable="false" />
           <Property Name="Id_Competence" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StudentWinner">
+          <Key>
+            <PropertyRef Name="Id_Winner" />
+          </Key>
+          <Property Name="Id_Winner" Type="int" Nullable="false" />
+          <Property Name="Id_WinnerStudent" Type="int" Nullable="false" />
+          <Property Name="Id_WinnerPlace" Type="int" Nullable="false" />
+          <Property Name="Id_ChampionStage" Type="int" Nullable="false" />
+          <Property Name="DateOfWin" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -317,7 +341,44 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__StudentWi__Id_Ch__208CD6FA">
+          <End Role="CampionatStages" Type="Self.CampionatStages" Multiplicity="1" />
+          <End Role="StudentWinner" Type="Self.StudentWinner" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CampionatStages">
+              <PropertyRef Name="Id_Stage" />
+            </Principal>
+            <Dependent Role="StudentWinner">
+              <PropertyRef Name="Id_ChampionStage" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StudentWi__Id_Wi__1F98B2C1">
+          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="StudentWinner" Type="Self.StudentWinner" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="Id_Student" />
+            </Principal>
+            <Dependent Role="StudentWinner">
+              <PropertyRef Name="Id_WinnerStudent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StudentWi__Id_Wi__2180FB33">
+          <End Role="PlaceOfWinners" Type="Self.PlaceOfWinners" Multiplicity="1" />
+          <End Role="StudentWinner" Type="Self.StudentWinner" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlaceOfWinners">
+              <PropertyRef Name="Id_Place" />
+            </Principal>
+            <Dependent Role="StudentWinner">
+              <PropertyRef Name="Id_WinnerPlace" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Хранилище ChampionatModelContainer">
+          <EntitySet Name="CampionatStages" EntityType="Self.CampionatStages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ChampionSchedule" EntityType="Self.ChampionSchedule" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClothingSizes" EntityType="Self.ClothingSizes" Schema="dbo" store:Type="Tables" />
@@ -326,7 +387,9 @@
           <EntitySet Name="ExpertRole" EntityType="Self.ExpertRole" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Junior" EntityType="Self.Junior" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Organizations" EntityType="Self.Organizations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PlaceOfWinners" EntityType="Self.PlaceOfWinners" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StudentWinner" EntityType="Self.StudentWinner" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__ChampionS__Id_Ch__70DDC3D8" Association="Self.FK__ChampionS__Id_Ch__70DDC3D8">
@@ -392,6 +455,18 @@
           <AssociationSet Name="FK__Student__Id_Orga__5535A963" Association="Self.FK__Student__Id_Orga__5535A963">
             <End Role="Organizations" EntitySet="Organizations" />
             <End Role="Student" EntitySet="Student" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StudentWi__Id_Ch__208CD6FA" Association="Self.FK__StudentWi__Id_Ch__208CD6FA">
+            <End Role="CampionatStages" EntitySet="CampionatStages" />
+            <End Role="StudentWinner" EntitySet="StudentWinner" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StudentWi__Id_Wi__1F98B2C1" Association="Self.FK__StudentWi__Id_Wi__1F98B2C1">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="StudentWinner" EntitySet="StudentWinner" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StudentWi__Id_Wi__2180FB33" Association="Self.FK__StudentWi__Id_Wi__2180FB33">
+            <End Role="PlaceOfWinners" EntitySet="PlaceOfWinners" />
+            <End Role="StudentWinner" EntitySet="StudentWinner" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -492,6 +567,7 @@
           <NavigationProperty Name="ClothingSizes" Relationship="Self.FK__Student__Id_Clot__5629CD9C" FromRole="Student" ToRole="ClothingSizes" />
           <NavigationProperty Name="Competences" Relationship="Self.FK__Student__Id_Comp__5812160E" FromRole="Student" ToRole="Competences" />
           <NavigationProperty Name="Organizations" Relationship="Self.FK__Student__Id_Orga__5535A963" FromRole="Student" ToRole="Organizations" />
+          <NavigationProperty Name="StudentWinner" Relationship="ChampionatModel.FK__StudentWi__Id_Wi__1F98B2C1" FromRole="Student" ToRole="StudentWinner" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -673,6 +749,21 @@
             <End Role="Organizations" EntitySet="Organizations" />
             <End Role="Junior" EntitySet="Junior" />
           </AssociationSet>
+          <EntitySet Name="CampionatStages" EntityType="ChampionatModel.CampionatStages" />
+          <EntitySet Name="PlaceOfWinners" EntityType="ChampionatModel.PlaceOfWinners" />
+          <EntitySet Name="StudentWinner" EntityType="ChampionatModel.StudentWinner" />
+          <AssociationSet Name="FK__StudentWi__Id_Ch__208CD6FA" Association="ChampionatModel.FK__StudentWi__Id_Ch__208CD6FA">
+            <End Role="CampionatStages" EntitySet="CampionatStages" />
+            <End Role="StudentWinner" EntitySet="StudentWinner" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StudentWi__Id_Wi__2180FB33" Association="ChampionatModel.FK__StudentWi__Id_Wi__2180FB33">
+            <End Role="PlaceOfWinners" EntitySet="PlaceOfWinners" />
+            <End Role="StudentWinner" EntitySet="StudentWinner" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StudentWi__Id_Wi__1F98B2C1" Association="ChampionatModel.FK__StudentWi__Id_Wi__1F98B2C1">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="StudentWinner" EntitySet="StudentWinner" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="ChampionSchedule">
           <Key>
@@ -819,6 +910,71 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="CampionatStages">
+          <Key>
+            <PropertyRef Name="Id_Stage" />
+          </Key>
+          <Property Name="Id_Stage" Type="Int32" Nullable="false" />
+          <Property Name="NameStage" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="StudentWinner" Relationship="ChampionatModel.FK__StudentWi__Id_Ch__208CD6FA" FromRole="CampionatStages" ToRole="StudentWinner" />
+        </EntityType>
+        <EntityType Name="PlaceOfWinners">
+          <Key>
+            <PropertyRef Name="Id_Place" />
+          </Key>
+          <Property Name="Id_Place" Type="Int32" Nullable="false" />
+          <Property Name="NamePlace" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="StudentWinner" Relationship="ChampionatModel.FK__StudentWi__Id_Wi__2180FB33" FromRole="PlaceOfWinners" ToRole="StudentWinner" />
+        </EntityType>
+        <EntityType Name="StudentWinner">
+          <Key>
+            <PropertyRef Name="Id_Winner" />
+          </Key>
+          <Property Name="Id_Winner" Type="Int32" Nullable="false" />
+          <Property Name="Id_WinnerStudent" Type="Int32" Nullable="false" />
+          <Property Name="Id_WinnerPlace" Type="Int32" Nullable="false" />
+          <Property Name="Id_ChampionStage" Type="Int32" Nullable="false" />
+          <Property Name="DateOfWin" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="CampionatStages" Relationship="ChampionatModel.FK__StudentWi__Id_Ch__208CD6FA" FromRole="StudentWinner" ToRole="CampionatStages" />
+          <NavigationProperty Name="PlaceOfWinners" Relationship="ChampionatModel.FK__StudentWi__Id_Wi__2180FB33" FromRole="StudentWinner" ToRole="PlaceOfWinners" />
+          <NavigationProperty Name="Student" Relationship="ChampionatModel.FK__StudentWi__Id_Wi__1F98B2C1" FromRole="StudentWinner" ToRole="Student" />
+        </EntityType>
+        <Association Name="FK__StudentWi__Id_Ch__208CD6FA">
+          <End Type="ChampionatModel.CampionatStages" Role="CampionatStages" Multiplicity="1" />
+          <End Type="ChampionatModel.StudentWinner" Role="StudentWinner" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CampionatStages">
+              <PropertyRef Name="Id_Stage" />
+            </Principal>
+            <Dependent Role="StudentWinner">
+              <PropertyRef Name="Id_ChampionStage" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StudentWi__Id_Wi__2180FB33">
+          <End Type="ChampionatModel.PlaceOfWinners" Role="PlaceOfWinners" Multiplicity="1" />
+          <End Type="ChampionatModel.StudentWinner" Role="StudentWinner" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlaceOfWinners">
+              <PropertyRef Name="Id_Place" />
+            </Principal>
+            <Dependent Role="StudentWinner">
+              <PropertyRef Name="Id_WinnerPlace" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StudentWi__Id_Wi__1F98B2C1">
+          <End Type="ChampionatModel.Student" Role="Student" Multiplicity="1" />
+          <End Type="ChampionatModel.StudentWinner" Role="StudentWinner" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="Id_Student" />
+            </Principal>
+            <Dependent Role="StudentWinner">
+              <PropertyRef Name="Id_WinnerStudent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -953,6 +1109,33 @@
                 <ScalarProperty Name="NameJunior" ColumnName="NameJunior" />
                 <ScalarProperty Name="SurnameJunior" ColumnName="SurnameJunior" />
                 <ScalarProperty Name="Id_Junior" ColumnName="Id_Junior" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CampionatStages">
+            <EntityTypeMapping TypeName="ChampionatModel.CampionatStages">
+              <MappingFragment StoreEntitySet="CampionatStages">
+                <ScalarProperty Name="NameStage" ColumnName="NameStage" />
+                <ScalarProperty Name="Id_Stage" ColumnName="Id_Stage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlaceOfWinners">
+            <EntityTypeMapping TypeName="ChampionatModel.PlaceOfWinners">
+              <MappingFragment StoreEntitySet="PlaceOfWinners">
+                <ScalarProperty Name="NamePlace" ColumnName="NamePlace" />
+                <ScalarProperty Name="Id_Place" ColumnName="Id_Place" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StudentWinner">
+            <EntityTypeMapping TypeName="ChampionatModel.StudentWinner">
+              <MappingFragment StoreEntitySet="StudentWinner">
+                <ScalarProperty Name="DateOfWin" ColumnName="DateOfWin" />
+                <ScalarProperty Name="Id_ChampionStage" ColumnName="Id_ChampionStage" />
+                <ScalarProperty Name="Id_WinnerPlace" ColumnName="Id_WinnerPlace" />
+                <ScalarProperty Name="Id_WinnerStudent" ColumnName="Id_WinnerStudent" />
+                <ScalarProperty Name="Id_Winner" ColumnName="Id_Winner" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
