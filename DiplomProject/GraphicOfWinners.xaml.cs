@@ -25,6 +25,7 @@ namespace DiplomProject
             InitializeComponent();
             db = new ChampionatEntities();
             dgW.ItemsSource = db.StudentWinner.ToList();
+            cb1.ItemsSource = db.CampionatStages.ToList();
         }
 
         private void Exit_ClickButton(object sender, RoutedEventArgs e)
@@ -45,7 +46,15 @@ namespace DiplomProject
 
         private void Edit_ClickButton(object sender, RoutedEventArgs e)
         {
+            StudentWinner selectedItem = dgW.SelectedItem as StudentWinner;
 
+            if (selectedItem != null)
+            {
+                EditWinners editWindow = new EditWinners(selectedItem, db);
+
+                editWindow.Show();
+                this.Close();
+            }
         }
 
         private void deleteBtn_Click(object sender, RoutedEventArgs e)

@@ -183,6 +183,9 @@
     <Compile Include="EditStudents.xaml.cs">
       <DependentUpon>EditStudents.xaml</DependentUpon>
     </Compile>
+    <Compile Include="EditWinners.xaml.cs">
+      <DependentUpon>EditWinners.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Expert.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -318,6 +321,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="EditStudents.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EditWinners.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

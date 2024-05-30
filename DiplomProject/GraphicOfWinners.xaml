@@ -26,11 +26,31 @@
                     <RowDefinition Height="70"/>
                 </Grid.RowDefinitions>
 
-                <StackPanel Grid.Row="0">
+                <StackPanel Grid.Row="0" Orientation="Horizontal">
+                    <TextBlock Text="Год:" FontWeight="SemiBold" 
+                               FontSize="25" VerticalAlignment="Center" 
+                               Margin="10"/>
+
+                    <ComboBox x:Name="cb2"
+                              Width="300"
+                              HorizontalAlignment="Left"
+                              Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                              DisplayMemberPath="NameCategory"/>
+
+                    <TextBlock Text="Этап:" FontWeight="SemiBold" 
+                               FontSize="25" VerticalAlignment="Center" 
+                               Margin="10"/>
+
+                    <ComboBox x:Name="cb1"
+                              Width="300"
+                              HorizontalAlignment="Left"
+                              Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                              DisplayMemberPath="NameStage"/>
+                    
                     <Button Style="{StaticResource MaterialDesignFlatButton}" Height="30" 
                                     Click="Exit_ClickButton" 
                                     HorizontalAlignment="Right"
-                                    VerticalAlignment="Center">
+                                    VerticalAlignment="Center" Margin="790 0 0 0">
                         <Image Source="Icons/TurnOff.png"/>
                     </Button>
                 </StackPanel>

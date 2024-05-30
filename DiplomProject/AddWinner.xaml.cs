@@ -14,9 +14,6 @@ using System.Windows.Shapes;
 
 namespace DiplomProject
 {
-    /// <summary>
-    /// Логика взаимодействия для AddWinner.xaml
-    /// </summary>
     public partial class AddWinner : Window
     {
         private Random random = new Random();
