@@ -48,7 +48,6 @@ namespace DiplomProject
         {
             try
             {
-                // Подключение к базе данных и выполнение запроса
                 string connectionString = "Data Source=DESKTOP-5F950AM\\SQLEXPRESS;Initial Catalog=Championat;Integrated Security=True";
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -60,7 +59,7 @@ namespace DiplomProject
                         command.Parameters.AddWithValue("@Login", login);
                         command.Parameters.AddWithValue("@Password", password);
                         int count = (int)command.ExecuteScalar();
-                        return count > 0; // Если найдено совпадение, возвращает true
+                        return count > 0;
                     }
                 }
             }
@@ -73,7 +72,11 @@ namespace DiplomProject
 
         private void Exit_ClickButton(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            MessageBoxResult result = MessageBox.Show("Вы уверены, что хотите выйти?", "Выход", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                Application.Current.Shutdown();
+            }
         }
 
         private void Registration_ClickButton(object sender, RoutedEventArgs e)

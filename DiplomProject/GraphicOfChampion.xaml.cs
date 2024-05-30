@@ -35,7 +35,6 @@ namespace DiplomProject
             cb3.IsEnabled = false;
             cb4.IsEnabled = false;
 
-            // Привязыв обработчика события SelectionChanged для cb1
             cb1.SelectionChanged += cb1_SelectionChanged;
 
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
@@ -43,7 +42,9 @@ namespace DiplomProject
 
         private void Add_ClickButton(object sender, RoutedEventArgs e)
         {
-            if (cb1.SelectedItem == null || cb2.SelectedItem == null || cb3.SelectedItem == null || cb4.SelectedItem == null || string.IsNullOrEmpty(tbId.Text) || dt1.SelectedDate == null || dt2.SelectedDate == null || dt3.SelectedDate == null || dt4.SelectedDate == null)
+            if (cb1.SelectedItem == null || cb2.SelectedItem == null || cb3.SelectedItem == null || cb4.SelectedItem == null 
+                || string.IsNullOrEmpty(tbId.Text) || dt1.SelectedDate == null || dt2.SelectedDate == null 
+                || dt3.SelectedDate == null || dt4.SelectedDate == null)
             {
                 MessageBox.Show("Пожалуйста, заполните все поля.", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
@@ -123,7 +124,6 @@ namespace DiplomProject
             }
             else
             {
-                // Выводим сообщение о необходимости выбора элемента для удаления
                 MessageBox.Show("Выберите элемент для удаления.", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
@@ -137,7 +137,11 @@ namespace DiplomProject
 
         private void Exit_ClickButton(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            MessageBoxResult result = MessageBox.Show("Вы уверены, что хотите выйти?", "Выход", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                Application.Current.Shutdown();
+            }
         }
 
         private void GenerationId_ClickButton(object sender, RoutedEventArgs e)

@@ -29,29 +29,51 @@
                 <TextBlock Text="Меню" FontSize="30" FontWeight="Bold" 
                            HorizontalAlignment="Center"/>
 
-                <Button x:Name="studentBtn" Content="Студенты" Margin="10" 
-                        Click="Students_ClickButton" Foreground="White" 
-                        Style="{StaticResource MaterialDesignRaisedDarkButton}"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
 
-                <Button x:Name="JuniorsBtn" Content="Юниоры" Margin="10" 
-                        Click="Juniors_ClickButton" Foreground="White" 
-                        Style="{StaticResource MaterialDesignRaisedDarkButton}"/>
+                    <StackPanel Grid.Column="0">
+                        <Button x:Name="studentBtn" Content="Студенты" Margin="10" 
+                                Click="Students_ClickButton" Foreground="White" 
+                                Style="{StaticResource MaterialDesignRaisedDarkButton}" 
+                                Height="50" FontSize="15" FontWeight="Bold"/>
 
-                <Button x:Name="expertBtn" Content="Эксперты" Margin="10" 
-                        Click="Experts_ClickButton" Foreground="White" 
-                        Style="{StaticResource MaterialDesignRaisedDarkButton}"/>
+                        <Button x:Name="JuniorsBtn" Content="Юниоры" Margin="10" 
+                                Click="Juniors_ClickButton" Foreground="White" 
+                                Style="{StaticResource MaterialDesignRaisedDarkButton}" 
+                                Height="50" FontSize="15" FontWeight="Bold"/>
 
-                <Button x:Name="listOfStudentsBtn" Content="Список участников" Margin="10" 
-                        Click="ListOfStudents_ClickButton" Foreground="White" 
-                        Style="{StaticResource MaterialDesignRaisedDarkButton}"/>
+                        <Button x:Name="expertBtn" Content="Эксперты" Margin="10" 
+                                Click="Experts_ClickButton" Foreground="White" 
+                                Style="{StaticResource MaterialDesignRaisedDarkButton}" 
+                                Height="50" FontSize="15" FontWeight="Bold"/>
+                    </StackPanel>
 
-                <Button x:Name="GraphisOfChampionBtn" Content="График проведения" Margin="10" 
-                        Click="GraphisOfChampion_ClickButton" Foreground="White" 
-                        Style="{StaticResource MaterialDesignRaisedDarkButton}"/>
+                    <StackPanel Grid.Column="1">
+                        <Button x:Name="listOfStudentsBtn" Content="Список участников" Margin="10" 
+                                Click="ListOfStudents_ClickButton" Foreground="White" 
+                                Style="{StaticResource MaterialDesignRaisedDarkButton}" 
+                                Height="50" FontSize="15" FontWeight="Bold"/>
 
-                <Button x:Name="WinnersBtn" Content="Победители чемпионата" Margin="10" 
-                        Click="Winners_ClickButton" Foreground="White" 
-                        Style="{StaticResource MaterialDesignRaisedDarkButton}"/>
+                        <Button x:Name="GraphisOfChampionBtn" Content="График проведения" Margin="10" 
+                                Click="GraphisOfChampion_ClickButton" Foreground="White" 
+                                Style="{StaticResource MaterialDesignRaisedDarkButton}" 
+                                Height="50" FontSize="15" FontWeight="Bold"/>
+
+                        <Button x:Name="WinnersBtn" Content="Победители чемпионата" Margin="10" 
+                                Click="Winners_ClickButton" Foreground="White" 
+                                Style="{StaticResource MaterialDesignRaisedDarkButton}" 
+                                Height="50" FontSize="15" FontWeight="Bold"/>
+                    </StackPanel>
+                </Grid>
+
+                <Button x:Name="BackBtn" Content="Выйти" Margin="10" 
+                                Click="Back_ClickButton" Foreground="White" 
+                                Style="{StaticResource MaterialDesignRaisedDarkButton}" 
+                                Height="50" FontSize="15" FontWeight="Bold" Cursor="Hand"/>
             </StackPanel>
         </Border>
     </Grid>

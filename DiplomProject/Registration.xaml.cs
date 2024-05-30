@@ -31,7 +31,11 @@ namespace DiplomProject
 
         private void Exit_ClickButton(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            MessageBoxResult result = MessageBox.Show("Вы уверены, что хотите выйти?", "Выход", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                Application.Current.Shutdown();
+            }
         }
 
         private void Registration_ClickButton(object sender, RoutedEventArgs e)
@@ -42,7 +46,6 @@ namespace DiplomProject
                 {
                     connection.Open();
 
-                    // Проверка существования пользователя с заданным логином
                     string checkUserQuery = "SELECT COUNT(*) FROM Users WHERE LoginUser = @LoginUser";
                     SqlCommand checkUserCommand = new SqlCommand(checkUserQuery, connection);
                     checkUserCommand.Parameters.AddWithValue("@LoginUser", tb1.Text);
@@ -55,18 +58,15 @@ namespace DiplomProject
                         return;
                     }
 
-                    // Генерация случайного Id_User от 02 до 99
                     Random rnd = new Random();
                     int idUser = rnd.Next(2, 100);
 
-                    // Проверка уникальности сгенерированного Id_User
                     string checkIdQuery = "SELECT COUNT(*) FROM Users WHERE Id_User = @IdUser";
                     SqlCommand checkIdCommand = new SqlCommand(checkIdQuery, connection);
                     checkIdCommand.Parameters.AddWithValue("@IdUser", idUser);
 
                     int existingIdCount = (int)checkIdCommand.ExecuteScalar();
 
-                    // Если сгенерированный id уже существует, генеририруется новый
                     while (existingIdCount > 0)
                     {
                         idUser = rnd.Next(1, 100);
@@ -74,7 +74,6 @@ namespace DiplomProject
                         existingIdCount = (int)checkIdCommand.ExecuteScalar();
                     }
 
-                    // Создание команды SQL для вставки данных
                     string sql = "INSERT INTO Users (Id_User, LoginUser, PasswordUser) VALUES (@IdUser, @LoginUser, @PasswordUser)";
                     SqlCommand command = new SqlCommand(sql, connection);
 
@@ -82,7 +81,6 @@ namespace DiplomProject
                     command.Parameters.AddWithValue("@LoginUser", tb1.Text);
                     command.Parameters.AddWithValue("@PasswordUser", tb2.Text);
 
-                    // Выполнение команды SQL для вставки данных
                     command.ExecuteNonQuery();
 
                     MessageBox.Show("Пользователь успешно зарегистрирован!");

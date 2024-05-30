@@ -115,19 +115,6 @@ namespace DiplomProject
             }
         }
 
-        private void GenerationId_ClickButton(object sender, RoutedEventArgs e)
-        {
-            string newID = GenerateRandomID();
-            tbId.Text = newID;
-        }
-
-        private void Back_ClickButton(object sender, RoutedEventArgs e)
-        {
-            WindowExperts exWin = new WindowExperts();
-            exWin.Show();
-            this.Close();
-        }
-
         private void cb2_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var selectedOrganization = (Organizations)cb2.SelectedItem;
@@ -137,6 +124,12 @@ namespace DiplomProject
                 tb6.Text = selectedOrganization.Country;
                 tb5.Text = selectedOrganization.Region;
             }
+        }
+
+        private void GenerationId_ClickButton(object sender, RoutedEventArgs e)
+        {
+            string newID = GenerateRandomID();
+            tbId.Text = newID;
         }
 
         private string GenerateRandomID()
@@ -149,8 +142,15 @@ namespace DiplomProject
                 newID = new string(Enumerable.Repeat(chars, 6)
                     .Select(s => s[random.Next(s.Length)]).ToArray());
                 randomID = int.Parse(newID);
-            } while (db.Expert.Any(p => p.Id_Expert == randomID)); // Проверка наличия ID в базе данных
+            } while (db.Expert.Any(p => p.Id_Expert == randomID));
             return newID;
+        }
+
+        private void Back_ClickButton(object sender, RoutedEventArgs e)
+        {
+            WindowExperts exWin = new WindowExperts();
+            exWin.Show();
+            this.Close();
         }
 
         public bool IsValidEmail(string email)

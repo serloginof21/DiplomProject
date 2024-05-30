@@ -54,7 +54,11 @@ namespace DiplomProject
 
         private void Exit_ClickButton(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            MessageBoxResult result = MessageBox.Show("Вы уверены, что хотите выйти?", "Выход", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                Application.Current.Shutdown();
+            }
         }
 
         private void Juniors_ClickButton(object sender, RoutedEventArgs e)
@@ -69,6 +73,18 @@ namespace DiplomProject
             GraphicOfWinners graphicOfWinners = new GraphicOfWinners();
             graphicOfWinners.Show();
             this.Close();
+        }
+
+        private void Back_ClickButton(object sender, RoutedEventArgs e)
+        {
+
+            MessageBoxResult result = MessageBox.Show("Вы уверены, что хотите выйти?", "Выход", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                AuthorizationWindow authorizationWindow = new AuthorizationWindow();
+                authorizationWindow.Show();
+                this.Close();
+            }
         }
     }
 }

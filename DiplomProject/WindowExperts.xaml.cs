@@ -40,7 +40,6 @@ namespace DiplomProject
             Expert selectedItem = dgE.SelectedItem as Expert;
             if (selectedItem != null)
             {
-                // Проверка на использование эксперта в другой таблице
                 bool isUsed = db.ChampionSchedule.Any(x => x.Id_ChiefExpert == selectedItem.Id_Expert || x.Id_MentorExpert == selectedItem.Id_Expert || x.Id_TechnicalExpert == selectedItem.Id_Expert);
 
                 if (isUsed)
@@ -105,7 +104,11 @@ namespace DiplomProject
 
         private void Exit_ClickButton(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            MessageBoxResult result = MessageBox.Show("Вы уверены, что хотите выйти?", "Выход", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                Application.Current.Shutdown();
+            }
         }
     }
 }
