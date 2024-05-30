@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using LiveCharts;
+using LiveCharts.Wpf;
 
 namespace DiplomProject
 {
@@ -24,6 +26,65 @@ namespace DiplomProject
             db = new ChampionatEntities();
             dgW.ItemsSource = db.StudentWinner.ToList();
             cb1.ItemsSource = db.CampionatStages.ToList();
+            cb3.ItemsSource = db.PlaceOfWinners.ToList();
+
+            UpdatePlot();
+        }
+
+        private void UpdatePlot()
+        {
+            int selectedStageId = cb1.SelectedItem != null ? (cb1.SelectedItem as CampionatStages).Id_Stage : 0;
+            int selectedPlaceId = cb3.SelectedItem != null ? (cb3.SelectedItem as PlaceOfWinners).Id_Place : 0;
+
+            var data = db.StudentWinner.AsQueryable();
+
+            if (selectedStageId > 0)
+            {
+                data = data.Where(w => w.Id_ChampionStage == selectedStageId);
+            }
+
+            if (selectedPlaceId > 0)
+            {
+                data = data.Where(w => w.Id_WinnerPlace == selectedPlaceId);
+            }
+
+            var groupedData = data
+                .GroupBy(w => w.DateOfWin.Year)
+                .Select(g => new { Year = g.Key, Count = g.Count() })
+                .OrderBy(d => d.Year)
+                .ToList();
+
+            var values = new ChartValues<int>();
+            var labels = new string[groupedData.Count];
+
+            for (int i = 0; i < groupedData.Count; i++)
+            {
+                values.Add(groupedData[i].Count);
+                labels[i] = groupedData[i].Year.ToString();
+            }
+
+            cartesianChart.Series = new SeriesCollection
+            {
+                new ColumnSeries
+                {
+                    Title = "Количество побед",
+                    Values = values
+                }
+            };
+
+            cartesianChart.AxisX.Clear();
+            cartesianChart.AxisX.Add(new Axis
+            {
+                Title = "Год",
+                Labels = labels
+            });
+
+            cartesianChart.AxisY.Clear();
+            cartesianChart.AxisY.Add(new Axis
+            {
+                Title = "Количество побед",
+                LabelFormatter = value => value.ToString("N")
+            });
         }
 
         private void Exit_ClickButton(object sender, RoutedEventArgs e)
@@ -96,9 +157,9 @@ namespace DiplomProject
             }
         }
 
-        private void cb1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            UpdatePlot();
         }
     }
 }
