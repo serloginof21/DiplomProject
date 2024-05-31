@@ -63,7 +63,7 @@ namespace DiplomProject
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show($"Ошибка удаления записи: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show($"Ошибка удаления записи: Данный студент используется в другой таблице", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
 
                     MessageBox.Show("Запись успешно удалена", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -71,7 +71,7 @@ namespace DiplomProject
             }
             else
             {
-                MessageBox.Show("Выберите запись для удаления.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Выберите запись для удаления.", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 
@@ -103,6 +103,7 @@ namespace DiplomProject
                 student.NameStudent.ToLower().Contains(searchText) ||
                 student.PatronymicStudent.ToLower().Contains(searchText)
             ).ToList();
+
             dgS.ItemsSource = filteredStudents;
         }
     }

@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DiplomProject"
         mc:Ignorable="d"
-        Title="Добавление" Height="900" Width="800"
+        Title="Добавление" Height="600" Width="800"
         Icon="Icons/CompanyLogo.jpg"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         WindowStartupLocation="CenterScreen">
     
     <Grid Background="LightGreen">
-        <Border Height="850" Background="White" Margin="15" VerticalAlignment="Center"
+        <Border Height="550" Background="White" Margin="15" VerticalAlignment="Center"
                 Padding="30" Width="750" CornerRadius="20">
             <Border.Effect>
                 <DropShadowEffect BlurRadius="30" Color="LightGray" ShadowDepth="0"/>

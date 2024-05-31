@@ -52,7 +52,7 @@ namespace DiplomProject
         {
             if (!FieldsAreValid())
             {
-                MessageBox.Show("Пожалуйста, заполните все поля!");
+                MessageBox.Show("Пожалуйста, заполните все поля!", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 

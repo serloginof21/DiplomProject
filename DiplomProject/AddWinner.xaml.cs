@@ -23,7 +23,11 @@ namespace DiplomProject
         {
             InitializeComponent();
             db = new ChampionatEntities();
-            cb1.ItemsSource = db.Student.ToList();
+
+            var existingWinnerStudentIds = db.StudentWinner.Select(sw => sw.Id_WinnerStudent).ToList();
+            var studentsWithoutWinners = db.Student.Where(s => !existingWinnerStudentIds.Contains(s.Id_Student)).ToList();
+            cb1.ItemsSource = studentsWithoutWinners;
+
             cb2.ItemsSource = db.PlaceOfWinners.ToList();
             cb3.ItemsSource = db.CampionatStages.ToList();
         }
@@ -32,7 +36,7 @@ namespace DiplomProject
         {
             if (!FieldsAreValid())
             {
-                MessageBox.Show("Пожалуйста, заполните все поля!");
+                MessageBox.Show("Пожалуйста, заполните все поля!", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
@@ -50,7 +54,7 @@ namespace DiplomProject
                 }
                 else
                 {
-                    MessageBox.Show("Пожалуйста, выберите студента.");
+                    MessageBox.Show("Пожалуйста, выберите студента.", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
                     return;
                 }
 
@@ -61,7 +65,7 @@ namespace DiplomProject
                 }
                 else
                 {
-                    MessageBox.Show("Пожалуйста, выберите место.");
+                    MessageBox.Show("Пожалуйста, выберите место.", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
                     return;
                 }
 
@@ -72,7 +76,7 @@ namespace DiplomProject
                 }
                 else
                 {
-                    MessageBox.Show("Пожалуйста, выберите размер одежды.");
+                    MessageBox.Show("Пожалуйста, выберите размер одежды.", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
                     return;
                 }
 
@@ -82,12 +86,12 @@ namespace DiplomProject
                 {
                     db.StudentWinner.Add(sWinner);
                     db.SaveChanges();
-                    MessageBox.Show("Данные успешно добавлены в базу данных.");
+                    MessageBox.Show("Данные успешно добавлены в базу данных.", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка при добавлении данных в базу данных: {ex.Message}");
+                MessageBox.Show($"Ошибка при добавлении данных в базу данных: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

@@ -72,13 +72,19 @@ namespace DiplomProject
         {
             if (!FieldsAreValid())
             {
-                MessageBox.Show("Пожалуйста, заполните все поля!");
+                MessageBox.Show("Пожалуйста, заполните все поля!", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
             if (!IsValidEmail(tb4.Text))
             {
-                MessageBox.Show("Пожалуйста, введите корректный адрес электронной почты.");
+                MessageBox.Show("Пожалуйста, введите корректный адрес электронной почты.", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            if (!IsValidPhoneNumber(tb7.Text))
+            {
+                MessageBox.Show("Пожалуйста, введите корректный номер телефона.", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
@@ -127,6 +133,50 @@ namespace DiplomProject
                 tb6.Text = selectedOrganization.Country;
                 tb5.Text = selectedOrganization.Region;
             }
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            if (textBox != null && !string.IsNullOrEmpty(textBox.Text))
+            {
+                int selectionStart = textBox.SelectionStart;
+                string newText = CapitalizeFirstLetter(textBox.Text);
+                textBox.Text = newText;
+                textBox.SelectionStart = selectionStart;
+            }
+        }
+        private string CapitalizeFirstLetter(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+                return text;
+
+            text = text.ToLower();
+            return char.ToUpper(text[0]) + text.Substring(1);
+        }
+
+        private void tb7_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            if (textBox != null)
+            {
+                string input = textBox.Text;
+
+                if (!input.StartsWith("8"))
+                {
+                    input = "8";
+                }
+
+                input = "8" + new string(input.Skip(1).Where(char.IsDigit).Take(10).ToArray());
+
+                textBox.Text = input;
+                textBox.SelectionStart = input.Length;
+            }
+        }
+        private bool IsValidPhoneNumber(string phoneNumber)
+        {
+            string pattern = @"^8\d{10}$";
+            return Regex.IsMatch(phoneNumber, pattern);
         }
     }
 }

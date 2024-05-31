@@ -124,19 +124,19 @@
                                  Height="50"
                                  Grid.Column="1"
                                  Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                 FontWeight="SemiBold"/>
+                                 FontWeight="SemiBold" TextChanged="TextBox_TextChanged"/>
 
                 <TextBox x:Name="tb2" Grid.Row="2" HorizontalAlignment="Left" 
                                  Width="300" Height="50"
                                  Grid.Column="1"
                                  Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                 FontWeight="SemiBold"/>
+                                 FontWeight="SemiBold" TextChanged="TextBox_TextChanged"/>
 
                 <TextBox x:Name="tb3" Grid.Row="3" HorizontalAlignment="Left" 
                                  Width="300" Height="50"
                                  Grid.Column="1"
                                  Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                 FontWeight="SemiBold"/>
+                                 FontWeight="SemiBold" TextChanged="TextBox_TextChanged"/>
 
                 <TextBox x:Name="tb4" Grid.Row="4" HorizontalAlignment="Left" 
                                  Width="300" Height="50"
@@ -160,7 +160,7 @@
                                  Width="300" Height="50"
                                  Grid.Column="1"
                                  Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                 FontWeight="SemiBold"/>
+                                 FontWeight="SemiBold" Text="8" TextChanged="tb7_TextChanged"/>
 
                 <ComboBox x:Name="cb1" Grid.Column="1" Grid.Row="5"
                                   Width="300"

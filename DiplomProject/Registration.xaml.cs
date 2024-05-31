@@ -54,7 +54,7 @@ namespace DiplomProject
 
                     if (existingUserCount > 0)
                     {
-                        MessageBox.Show("Пользователь с таким логином уже существует.");
+                        MessageBox.Show("Пользователь с таким логином уже существует.", "Ошибка регистрации", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
 
@@ -83,11 +83,11 @@ namespace DiplomProject
 
                     command.ExecuteNonQuery();
 
-                    MessageBox.Show("Пользователь успешно зарегистрирован!");
+                    MessageBox.Show("Пользователь успешно зарегистрирован!", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Ошибка при регистрации пользователя: " + ex.Message);
+                    MessageBox.Show("Ошибка при регистрации пользователя: " + ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }

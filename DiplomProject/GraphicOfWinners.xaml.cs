@@ -67,7 +67,7 @@ namespace DiplomProject
             {
                 new ColumnSeries
                 {
-                    Title = "Количество побед",
+                    Title = "Количество призового места",
                     Values = values
                 }
             };
@@ -82,7 +82,7 @@ namespace DiplomProject
             cartesianChart.AxisY.Clear();
             cartesianChart.AxisY.Add(new Axis
             {
-                Title = "Количество побед",
+                Title = "Количество призового места",
                 LabelFormatter = value => value.ToString("N")
             });
         }
@@ -148,17 +148,21 @@ namespace DiplomProject
 
         private void backBtn_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("Вы уверены, что хотите выйти?", "Выход", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result == MessageBoxResult.Yes)
-            {
-                MainMenu mainWin = new MainMenu();
-                mainWin.Show();
-                this.Close();
-            }
+
+            MainMenu mainWin = new MainMenu();
+            mainWin.Show();
+            this.Close();
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            UpdatePlot();
+        }
+
+        private void Reset_ClickButton(object sender, RoutedEventArgs e)
+        {
+            cb1.SelectedItem = null;
+            cb3.SelectedItem = null;
             UpdatePlot();
         }
     }

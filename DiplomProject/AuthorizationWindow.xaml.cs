@@ -30,10 +30,8 @@ namespace DiplomProject
             string login = tbLogin.Text;
             string password = tbPassword.Password;
 
-            // Проверка наличия пользователя в базе данных
             if (CheckUser(login, password))
             {
-                // Пользователь существует, открывается следующее окно
                 MainMenu win1 = new MainMenu();
                 win1.Show();
                 this.Close();

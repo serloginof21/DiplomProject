@@ -48,10 +48,15 @@
                               Style="{StaticResource MaterialDesignOutlinedComboBox}"
                               DisplayMemberPath="NamePlace" SelectionChanged="ComboBox_SelectionChanged"/>
 
+                    <Button x:Name="regBtn" Content="Сбросить" Margin="10 0 0 0" 
+                        Click="Reset_ClickButton" Foreground="Black"
+                        Style="{StaticResource MaterialDesignFlatButton}" 
+                        FontWeight="SemiBold"/>
+
                     <Button Style="{StaticResource MaterialDesignFlatButton}" Height="30" 
                                     Click="Exit_ClickButton" 
                                     HorizontalAlignment="Right"
-                                    VerticalAlignment="Center" Margin="390 0 0 0">
+                                    VerticalAlignment="Center" Margin="650 0 0 0">
                         <Image Source="Icons/TurnOff.png"/>
                     </Button>
                 </StackPanel>
