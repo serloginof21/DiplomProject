@@ -24,9 +24,7 @@ namespace DiplomProject
             InitializeComponent();
             db = new ChampionatEntities();
 
-            var existingWinnerStudentIds = db.StudentWinner.Select(sw => sw.Id_WinnerStudent).ToList();
-            var studentsWithoutWinners = db.Student.Where(s => !existingWinnerStudentIds.Contains(s.Id_Student)).ToList();
-            cb1.ItemsSource = studentsWithoutWinners;
+            cb1.ItemsSource = db.Student.ToList();
 
             cb2.ItemsSource = db.PlaceOfWinners.ToList();
             cb3.ItemsSource = db.CampionatStages.ToList();

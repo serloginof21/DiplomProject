@@ -67,7 +67,7 @@ namespace DiplomProject
             {
                 new ColumnSeries
                 {
-                    Title = "Количество призового места",
+                    Title = "Количество призовых мест",
                     Values = values
                 }
             };
@@ -82,7 +82,7 @@ namespace DiplomProject
             cartesianChart.AxisY.Clear();
             cartesianChart.AxisY.Add(new Axis
             {
-                Title = "Количество призового места",
+                Title = "Количество призовых мест",
                 LabelFormatter = value => value.ToString("N")
             });
         }
