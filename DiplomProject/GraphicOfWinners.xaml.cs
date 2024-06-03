@@ -138,6 +138,7 @@ namespace DiplomProject
                     }
 
                     MessageBox.Show("Запись успешно удалена", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+                    UpdatePlot();
                 }
             }
             else
