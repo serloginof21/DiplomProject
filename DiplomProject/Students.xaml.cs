@@ -60,13 +60,12 @@ namespace DiplomProject
                     {
                         db.SaveChanges();
                         dgS.ItemsSource = db.Student.ToList();
+                        MessageBox.Show("Запись успешно удалена", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show($"Ошибка удаления записи: Данный студент используется в другой таблице", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
-
-                    MessageBox.Show("Запись успешно удалена", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             else

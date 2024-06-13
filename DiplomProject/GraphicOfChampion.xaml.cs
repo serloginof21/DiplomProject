@@ -42,11 +42,19 @@ namespace DiplomProject
 
         private void Add_ClickButton(object sender, RoutedEventArgs e)
         {
-            if (cb1.SelectedItem == null || cb2.SelectedItem == null || cb3.SelectedItem == null || cb4.SelectedItem == null 
-                || string.IsNullOrEmpty(tbId.Text) || dt1.SelectedDate == null || dt2.SelectedDate == null 
+            if (cb1.SelectedItem == null || cb2.SelectedItem == null || cb3.SelectedItem == null || cb4.SelectedItem == null
+                || string.IsNullOrEmpty(tbId.Text) || dt1.SelectedDate == null || dt2.SelectedDate == null
                 || dt3.SelectedDate == null || dt4.SelectedDate == null)
             {
                 MessageBox.Show("Пожалуйста, заполните все поля.", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            var selectedCompetenceId = ((Competences)cb1.SelectedItem).Id_Competence;
+            var existingSchedule = db.ChampionSchedule.FirstOrDefault(s => s.Id_Competence == selectedCompetenceId);
+            if (existingSchedule != null)
+            {
+                MessageBox.Show("Запись с данной компетенцией уже существует.", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -58,7 +66,7 @@ namespace DiplomProject
                     ChampionSchedule newSchedule = new ChampionSchedule
                     {
                         Id_Schedule = int.Parse(tbId.Text),
-                        Id_Competence = ((Competences)cb1.SelectedItem).Id_Competence,
+                        Id_Competence = selectedCompetenceId,
                         Id_ChiefExpert = ((Expert)cb2.SelectedItem).Id_Expert,
                         Id_MentorExpert = ((Expert)cb3.SelectedItem).Id_Expert,
                         Id_TechnicalExpert = ((Expert)cb4.SelectedItem).Id_Expert,
